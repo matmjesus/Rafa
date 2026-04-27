@@ -2,341 +2,181 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kahoot Math: Rafaela</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabarito PA - Mobile</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
-            --purple: #4617b1;
-            --blue: #1368ce;
-            --green: #26890c;
-            --red: #eb1041;
-            --orange: #ffa602;
-            --dark: #333333;
+            --primary: #1a73e8;
+            --bg: #f8f9fa;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Montserrat', sans-serif, Arial;
-            background-color: var(--purple);
-            color: white;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        /* Barra de Progresso Estilo Kahoot */
-        .progress-container {
-            width: 100%;
-            height: 12px;
-            background: rgba(255,255,255,0.2);
-            position: fixed;
-            top: 0;
-            z-index: 100;
-        }
-        #bar {
-            height: 100%;
-            background: var(--orange);
-            width: 10%;
-            transition: width 0.4s ease;
-        }
-
-        /* Container de Slides */
-        .slider {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 1000vw;
-            height: 100%;
-        }
-
-        .slide {
-            width: 100vw;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Card Principal */
-        .question-card {
-            background: white;
-            color: var(--dark);
-            width: 95%;
-            max-width: 500px;
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 8px 0 rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .level-text {
-            color: var(--purple);
-            font-weight: 900;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .math-display {
-            font-size: 2.5rem; /* Fonte Bem Grande */
-            font-weight: 800;
-            margin: 20px 0;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 12px;
-            color: var(--purple);
-        }
-
-        .details {
-            text-align: left;
-            font-size: 1.2rem;
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: var(--bg); 
+            margin: 0; 
+            padding: 10px; 
+            color: #333;
             line-height: 1.5;
         }
-
-        .step-item {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            background: var(--blue);
-            color: white;
-            min-width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .highlight {
-            color: var(--red);
-            font-weight: bold;
-        }
-
-        /* Botões Flutuantes */
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            display: flex;
-            gap: 15px;
-            padding: 0 20px;
-            justify-content: center;
-        }
-
-        .btn {
-            flex: 1;
-            max-width: 200px;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 900;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 5px 0 rgba(0,0,0,0.2);
-            transition: transform 0.1s;
-        }
-
-        .btn-next { background: var(--blue); }
-        .btn-prev { background: var(--red); }
+        .app-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); }
+        .header { background: var(--primary); color: white; padding: 20px 15px; text-align: center; }
+        .header h1 { margin: 0; font-size: 1.4rem; }
+        .header p { margin: 5px 0 0; opacity: 0.9; font-size: 0.9rem; }
         
-        .btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+        .progress-container { height: 4px; background: #eee; width: 100%; }
+        .progress-bar { height: 100%; background: #f9ab00; width: 0%; transition: width 0.3s; }
+        
+        .content { padding: 15px; min-height: 400px; }
+        .step-title { color: var(--primary); font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        
+        .card { 
+            background: #fff; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin-bottom: 20px; 
         }
-
-        .btn:disabled {
-            background: #999;
-            opacity: 0.5;
+        .q-label { 
+            display: inline-block; 
+            background: #e8f0fe; 
+            color: var(--primary); 
+            padding: 2px 8px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            font-size: 0.8rem; 
+            margin-bottom: 10px;
         }
+        .math-scroll { overflow-x: auto; padding: 10px 0; margin: 10px 0; }
+        .box-solucao { 
+            background: #fdfdfd; 
+            border-left: 4px solid #34a853; 
+            padding: 12px; 
+            margin-top: 10px; 
+            font-size: 0.95rem;
+        }
+        .sub-titulo { color: #d93025; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
 
-        /* Cores de fundo variadas para cada slide */
-        .s1 { background-color: #4617b1; }
-        .s2 { background-color: #1368ce; }
-        .s3 { background-color: #26890c; }
-        .s4 { background-color: #eb1041; }
-        .s5 { background-color: #ffa602; }
-        .s6 { background-color: #0542b9; }
-        .s7 { background-color: #12b5cb; }
-        .s8 { background-color: #4617b1; }
-        .s9 { background-color: #26890c; }
-        .s10 { background-color: #eb1041; }
-
+        .footer-nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px; 
+            background: #fff; 
+            border-top: 1px solid #eee;
+        }
+        button { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 1rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:active { transform: scale(0.98); opacity: 0.8; }
+        button:disabled { background: #ccc; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="progress-container"><div id="bar"></div></div>
+<div class="app-container">
+    <div class="header">
+        <h1>Gabarito de PA</h1>
+        <p>Resoluções Detalhadas (Mobile)</p>
+    </div>
+    <div class="progress-container"><div id="bar" class="progress-bar"></div></div>
 
-<div class="slider" id="mainSlider">
-    <section class="slide s1">
-        <div class="question-card">
-            <p class="level-text">Nível 1: Começo Rápido</p>
-            <div class="math-display">15 + 3 × 4</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>A <b class="highlight">Multiplicação</b> é prioridade.</span></div>
-                <div class="step-item"><div class="step-number">2</div><span>3 × 4 = <b class="highlight">12</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>15 + 12 = <b>27</b></span></div>
+    <div class="content">
+        <div id="p1" class="step">
+            <h2 class="step-title">1. É uma PA?</h2>
+            <div class="card">
+                <span class="q-label">Questão 1 e 2</span>
+                <div>1) (3, 6, 9, 12...) <b>Sim</b></div>
+                <div>2) (10, 20, 30, 45...) <b>Não</b></div>
+                <p style="font-size: 0.85rem; color: #666;">Justificativa: Na questão 2, a diferença pula de 10 para 15 no final.</p>
+            </div>
+            <div class="card">
+                <span class="q-label">Questão 6 e 8</span>
+                <div>6) (2, 4, 8, 16...) <b>Não</b></div>
+                <div>8) (1/3, 2/3, 1...) <b>Sim</b></div>
+                <p style="font-size: 0.85rem; color: #666;">Justificativa: A questão 6 é uma PG (multiplicação por 2).</p>
             </div>
         </div>
-    </section>
 
-    <section class="slide s2">
-        <div class="question-card">
-            <p class="level-text">Nível 2: O Poder do VIP</p>
-            <div class="math-display">(15 + 3) × 4</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Os <b class="highlight">Parênteses</b> mandam agora!</span></div>
-                <div class="step-item"><div class="step-number">2</div><span>15 + 3 = <b class="highlight">18</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>18 × 4 = <b>72</b></span></div>
+        <div id="p2" class="step hidden">
+            <h2 class="step-title">2. Termo Geral</h2>
+            <div class="card">
+                <span class="q-label">Questão 21</span>
+                <div>Achar \(a_6\) com \(a_1=8, r=3\)</div>
+                <div class="math-scroll">
+                    \[ a_6 = 8 + (6-1) \cdot 3 \]
+                    \[ a_6 = 8 + 15 = 23 \]
+                </div>
+            </div>
+            <div class="card">
+                <span class="q-label">Questão 27</span>
+                <div>Achar \(a_8\) com \(a_1=-4, r=7\)</div>
+                <div class="math-scroll">
+                    \[ a_8 = -4 + (8-1) \cdot 7 \]
+                    \[ a_8 = -4 + 49 = 45 \]
+                </div>
             </div>
         </div>
-    </section>
 
-    <section class="slide s3">
-        <div class="question-card">
-            <p class="level-text">Nível 3: Ordem de Leitura</p>
-            <div class="math-display">50 - 2 × 10 + 5</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Primeiro: 2 × 10 = <b class="highlight">20</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Agora faça: 50 - 20 = <b class="highlight">30</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Final: 30 + 5 = <b>35</b></span></div>
+        <div id="p3" class="step hidden">
+            <h2 class="step-title">3. Soma de Termos</h2>
+            <div class="card">
+                <span class="q-label">Questão 31</span>
+                <div>Calcular \(S_{12}\) da PA (3, 6, 9...)</div>
+                <div class="box-solucao">
+                    <span class="sub-titulo">Passo 1: Achar o último termo</span>
+                    <div class="math-scroll">\( a_{12} = 3 + (11 \cdot 3) = 36 \)</div>
+                    <span class="sub-titulo">Passo 2: Calcular a soma</span>
+                    <div class="math-scroll">\( S_{12} = \frac{(3 + 36) \cdot 12}{2} = 234 \)</div>
+                </div>
+            </div>
+            <div class="card">
+                <span class="q-label">Questão 35</span>
+                <div>Soma dos 40 primeiros ímpares</div>
+                <div class="box-solucao">
+                    <span class="sub-titulo">Passo 1: Achar o \(a_{40}\)</span>
+                    <div class="math-scroll">\( a_{40} = 1 + (39 \cdot 2) = 79 \)</div>
+                    <span class="sub-titulo">Passo 2: Calcular a soma</span>
+                    <div class="math-scroll">\( S_{40} = \frac{(1 + 79) \cdot 40}{2} = 1600 \)</div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="slide s4">
-        <div class="question-card">
-            <p class="level-text">Nível 4: Foco Interno</p>
-            <div class="math-display">120 - (30 + 20 × 2)</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Dentro do parêntese, multiplique: <b class="highlight">40</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Some no parêntese: 30 + 40 = <b class="highlight">70</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Fora: 120 - 70 = <b>50</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s5">
-        <div class="question-card">
-            <p class="level-text">Nível 5: Duas Frentes</p>
-            <div class="math-display">10 × 10 + 5 × 20</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Lado esquerdo: <b class="highlight">100</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Lado direito: <b class="highlight">100</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Juntando: 100 + 100 = <b>200</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s6">
-        <div class="question-card">
-            <p class="level-text">Nível 6: O Desafio Real</p>
-            <div class="math-display">(25 - 9 × 2 + 11)</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Multiplique: 9 × 2 = <b class="highlight">18</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Calcule: 25 - 18 = <b class="highlight">7</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Some o final: 7 + 11 = <b>18</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s7">
-        <div class="question-card">
-            <p class="level-text">Nível 7: Parênteses Duplos</p>
-            <div class="math-display">(100-80) × (15+5)</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Bloco 1: <b class="highlight">20</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Bloco 2: <b class="highlight">20</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Multiplique: 20 × 20 = <b>400</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s8">
-        <div class="question-card">
-            <p class="level-text">Nível 8: Multiplicação Externa</p>
-            <div class="math-display">300 - (60 + 40) × 2</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Parêntese: 60 + 40 = <b class="highlight">100</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Multiplique: 100 × 2 = <b class="highlight">200</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Subtraia: 300 - 200 = <b>100</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s9">
-        <div class="question-card">
-            <p class="level-text">Nível 9: Grandes Valores</p>
-            <div class="math-display">2000 - (400 × 4)</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Calcule o parêntese: <b class="highlight">1600</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>2000 - 1600 = <b>400</b></span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide s10">
-        <div class="question-card">
-            <p class="level-text">Nível 10: Mestra da Matemática</p>
-            <div class="math-display">3 × (60 + 40) + 80</div>
-            <div class="details">
-                <div class="step-item"><div class="step-number">1</div><span>Parêntese: <b class="highlight">100</b></span></div>
-                <div class="step-item"><div class="step-number">2</div><span>Multiplique: 3 × 100 = <b class="highlight">300</b></span></div>
-                <div class="step-item"><div class="step-number">3</div><span>Finalize: 300 + 80 = <b>380</b></span></div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<div class="controls">
-    <button class="btn btn-prev" id="prevBtn">VOLTAR</button>
-    <button class="btn btn-next" id="nextBtn">PRÓXIMO</button>
+    <div class="footer-nav">
+        <button id="btnPrev" onclick="nav(-1)" disabled>Anterior</button>
+        <span id="pageTxt" style="font-size: 0.9rem; font-weight: bold;">1 / 3</span>
+        <button id="btnNext" onclick="nav(1)">Próximo</button>
+    </div>
 </div>
 
 <script>
-    let currentSlide = 0;
-    const totalSlides = 10;
-    const slider = document.getElementById('mainSlider');
-    const bar = document.getElementById('bar');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    let cur = 1;
+    const total = 3;
 
-    function updateView() {
-        slider.style.transform = `translateX(-${currentSlide * 100}vw)`;
-        bar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
-        prevBtn.disabled = currentSlide === 0;
+    function nav(d) {
+        document.getElementById('p' + cur).classList.add('hidden');
+        cur += d;
+        document.getElementById('p' + cur).classList.remove('hidden');
         
-        if(currentSlide === totalSlides - 1) {
-            nextBtn.innerText = "RECOMEÇAR";
-            nextBtn.style.background = "var(--green)";
-        } else {
-            nextBtn.innerText = "PRÓXIMO";
-            nextBtn.style.background = "var(--blue)";
-        }
+        document.getElementById('btnPrev').disabled = cur === 1;
+        document.getElementById('btnNext').innerText = cur === total ? "Início" : "Próximo";
+        if(cur > total) { location.reload(); }
+
+        document.getElementById('pageTxt').innerText = cur + ' / ' + total;
+        document.getElementById('bar').style.width = ((cur-1)/(total-1)*100) + '%';
+        window.scrollTo(0,0);
     }
-
-    nextBtn.onclick = () => {
-        if (currentSlide < totalSlides - 1) currentSlide++;
-        else currentSlide = 0;
-        updateView();
-    };
-
-    prevBtn.onclick = () => {
-        if (currentSlide > 0) currentSlide--;
-        updateView();
-    };
-
-    updateView();
 </script>
 
 </body>
