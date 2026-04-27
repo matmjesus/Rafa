@@ -3,82 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabarito PA - Mobile</title>
+    <title>Gabarito PA Completo (1-40)</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        :root {
-            --primary: #1a73e8;
-            --bg: #f8f9fa;
-            --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        * { box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg); 
-            margin: 0; 
-            padding: 10px; 
-            color: #333;
-            line-height: 1.5;
-        }
-        .app-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); }
-        .header { background: var(--primary); color: white; padding: 20px 15px; text-align: center; }
-        .header h1 { margin: 0; font-size: 1.4rem; }
-        .header p { margin: 5px 0 0; opacity: 0.9; font-size: 0.9rem; }
-        
-        .progress-container { height: 4px; background: #eee; width: 100%; }
-        .progress-bar { height: 100%; background: #f9ab00; width: 0%; transition: width 0.3s; }
-        
-        .content { padding: 15px; min-height: 400px; }
-        .step-title { color: var(--primary); font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
-        
-        .card { 
-            background: #fff; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 10px; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-        }
-        .q-label { 
-            display: inline-block; 
-            background: #e8f0fe; 
-            color: var(--primary); 
-            padding: 2px 8px; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            font-size: 0.8rem; 
-            margin-bottom: 10px;
-        }
-        .math-scroll { overflow-x: auto; padding: 10px 0; margin: 10px 0; }
-        .box-solucao { 
-            background: #fdfdfd; 
-            border-left: 4px solid #34a853; 
-            padding: 12px; 
-            margin-top: 10px; 
-            font-size: 0.95rem;
-        }
-        .sub-titulo { color: #d93025; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
-
-        .footer-nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px; 
-            background: #fff; 
-            border-top: 1px solid #eee;
-        }
-        button { 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            padding: 12px 20px; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 1rem;
-            -webkit-tap-highlight-color: transparent;
-        }
-        button:active { transform: scale(0.98); opacity: 0.8; }
-        button:disabled { background: #ccc; }
+        :root { --primary: #1a73e8; --success: #1e8e3e; --bg: #f8f9fa; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #202124; }
+        .app-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 1.2rem; }
+        .header p { margin: 5px 0 0; font-size: 0.8rem; opacity: 0.9; }
+        .progress-bar { height: 6px; background: #e8eaed; width: 100%; }
+        .progress-fill { height: 100%; background: #f9ab00; width: 0%; transition: 0.4s; }
+        .content { padding: 20px; min-height: 500px; }
+        .section-title { color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; }
+        .card { border: 1px solid #dadce0; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+        .q-tag { display: inline-block; background: #e8f0fe; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; }
+        .math-scroll { overflow-x: auto; padding: 10px 0; background: #f8f9fa; border-radius: 5px; margin: 10px 0; border-left: 4px solid var(--success); padding-left: 10px; }
+        .sub-label { display: block; font-size: 0.75rem; font-weight: bold; color: #d93025; text-transform: uppercase; margin-bottom: 5px; }
+        .justifica { font-size: 0.85rem; color: #5f6368; line-height: 1.4; margin-top: 10px; font-style: italic; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-top: 1px solid #eee; background: white; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        button:disabled { background: #bdc1c6; }
         .hidden { display: none; }
     </style>
 </head>
@@ -86,95 +33,149 @@
 
 <div class="app-container">
     <div class="header">
-        <h1>Gabarito de PA</h1>
-        <p>Resoluções Detalhadas (Mobile)</p>
+        <h1>Gabarito PA: 1 a 40</h1>
+        <p>Resolução Detalhada Passo a Passo</p>
     </div>
-    <div class="progress-container"><div id="bar" class="progress-bar"></div></div>
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
 
-    <div class="content">
-        <div id="p1" class="step">
-            <h2 class="step-title">1. É uma PA?</h2>
+    <div class="content" id="main">
+        <div id="step1" class="page">
+            <h2 class="section-title">1. Identificação</h2>
             <div class="card">
-                <span class="q-label">Questão 1 e 2</span>
-                <div>1) (3, 6, 9, 12...) <b>Sim</b></div>
-                <div>2) (10, 20, 30, 45...) <b>Não</b></div>
-                <p style="font-size: 0.85rem; color: #666;">Justificativa: Na questão 2, a diferença pula de 10 para 15 no final.</p>
+                <span class="q-tag">1 a 5</span>
+                <div>1) (3,6,9...) <b>Sim</b> (r=3)</div>
+                <div>2) (10,20,30,45...) <b>Não</b> (razão variou)</div>
+                <div>3) (7,7,7...) <b>Sim</b> (r=0)</div>
+                <div>4) (1,4,9...) <b>Não</b> (quadrados)</div>
+                <div>5) (100,85,70...) <b>Sim</b> (r=-15)</div>
             </div>
             <div class="card">
-                <span class="q-label">Questão 6 e 8</span>
-                <div>6) (2, 4, 8, 16...) <b>Não</b></div>
-                <div>8) (1/3, 2/3, 1...) <b>Sim</b></div>
-                <p style="font-size: 0.85rem; color: #666;">Justificativa: A questão 6 é uma PG (multiplicação por 2).</p>
+                <span class="q-tag">6 a 10</span>
+                <div>6) (2,4,8...) <b>Não</b> (é PG)</div>
+                <div>7) (50,45,40...) <b>Sim</b> (r=-5)</div>
+                <div>8) (1/3, 2/3, 1...) <b>Sim</b> (r=1/3)</div>
+                <div>9) (-8,-5,-2...) <b>Sim</b> (r=3)</div>
+                <div>10) (0,-3,-6,-10...) <b>Não</b> (razão variou)</div>
             </div>
         </div>
 
-        <div id="p2" class="step hidden">
-            <h2 class="step-title">2. Termo Geral</h2>
+        <div id="step2" class="page hidden">
+            <h2 class="section-title">2. Elementos (\(a_1\) e \(r\))</h2>
             <div class="card">
-                <span class="q-label">Questão 21</span>
-                <div>Achar \(a_6\) com \(a_1=8, r=3\)</div>
+                <span class="q-tag">11 a 15</span>
+                11) \(a_1=4, r=6\)<br>
+                12) \(a_1=30, r=-6\)<br>
+                13) \(a_1=9, r=0\)<br>
+                14) \(a_1=-2, r=-4\)<br>
+                15) \(a_1=15, r=15\)
+            </div>
+            <div class="card">
+                <span class="q-tag">16 a 20</span>
+                16) \(a_1=5, r=8\)<br>
+                17) \(a_1=-15, r=5\)<br>
+                18) \(a_1=0, r=0.4\)<br>
+                19) \(a_1=200, r=-50\)<br>
+                20) \(a_1=y, r=5\)
+            </div>
+        </div>
+
+        <div id="step3" class="page hidden">
+            <h2 class="section-title">3. Termo Geral (a_n)</h2>
+            <div class="card">
+                <span class="q-tag">21 e 22</span>
+                <p>21) \(a_6\) para \(a_1=8, r=3\):</p>
+                <div class="math-scroll">\(a_6 = 8 + (5 \cdot 3) = 23\)</div>
+                <p>22) \(a_{12}\) para \(a_1=2, r=6\):</p>
+                <div class="math-scroll">\(a_{12} = 2 + (11 \cdot 6) = 68\)</div>
+            </div>
+            <div class="card">
+                <span class="q-tag">23 e 24</span>
+                <p>23) \(a_{10}\) para \(a_1=1, r=12\):</p>
+                <div class="math-scroll">\(a_{10} = 1 + (9 \cdot 12) = 109\)</div>
+                <p>24) \(a_4\) para \(a_1=20, r=2.5\):</p>
+                <div class="math-scroll">\(a_4 = 20 + (3 \cdot 2.5) = 27.5\)</div>
+            </div>
+        </div>
+
+        <div id="step4" class="page hidden">
+            <h2 class="section-title">3. Termo Geral (Cont.)</h2>
+            <div class="card">
+                <span class="q-tag">25 e 26</span>
+                <p>25) \(a_7\) para \(a_1=-10, r=-3\):</p>
+                <div class="math-scroll">\(a_7 = -10 + (6 \cdot -3) = -28\)</div>
+                <p>26) \(a_5\) para \(a_1=15, r=-4\):</p>
+                <div class="math-scroll">\(a_5 = 15 + (4 \cdot -4) = -1\)</div>
+            </div>
+            <div class="card">
+                <span class="q-tag">27 a 30</span>
+                <p>27) \(a_8\) (\(a_1=-4, r=7\)): <b>45</b></p>
+                <p>28) \(a_{15}\) (\(a_1=50, r=-5\)): <b>-20</b></p>
+                <p>29) \(a_{100}\) (\(a_1=3, r=3\)): <b>300</b></p>
+                <p>30) \(a_{20}\) (\(a_1=0.5, r=0.5\)): <b>10</b></p>
+            </div>
+        </div>
+
+        <div id="step5" class="page hidden">
+            <h2 class="section-title">4. Somas (S_n)</h2>
+            <div class="card">
+                <span class="q-tag">31) S_{12} de (3,6,9...)</span>
                 <div class="math-scroll">
-                    \[ a_6 = 8 + (6-1) \cdot 3 \]
-                    \[ a_6 = 8 + 15 = 23 \]
+                    <span class="sub-label">1º Achar \(a_{12}\):</span>
+                    \(a_{12} = 3 + 11 \cdot 3 = 36\)<br><br>
+                    <span class="sub-label">2º Calcular Soma:</span>
+                    \(S_{12} = \frac{(3 + 36) \cdot 12}{2} = 234\)
                 </div>
             </div>
             <div class="card">
-                <span class="q-label">Questão 27</span>
-                <div>Achar \(a_8\) com \(a_1=-4, r=7\)</div>
+                <span class="q-tag">32) S_{25} de (4,8,12...)</span>
                 <div class="math-scroll">
-                    \[ a_8 = -4 + (8-1) \cdot 7 \]
-                    \[ a_8 = -4 + 49 = 45 \]
+                    <span class="sub-label">1º Achar \(a_{25}\):</span>
+                    \(a_{25} = 4 + 24 \cdot 4 = 100\)<br><br>
+                    <span class="sub-label">2º Calcular Soma:</span>
+                    \(S_{25} = \frac{(4 + 100) \cdot 25}{2} = 1300\)
                 </div>
             </div>
         </div>
 
-        <div id="p3" class="step hidden">
-            <h2 class="step-title">3. Soma de Termos</h2>
+        <div id="step6" class="page hidden">
+            <h2 class="section-title">4. Somas (Cont.)</h2>
             <div class="card">
-                <span class="q-label">Questão 31</span>
-                <div>Calcular \(S_{12}\) da PA (3, 6, 9...)</div>
-                <div class="box-solucao">
-                    <span class="sub-titulo">Passo 1: Achar o último termo</span>
-                    <div class="math-scroll">\( a_{12} = 3 + (11 \cdot 3) = 36 \)</div>
-                    <span class="sub-titulo">Passo 2: Calcular a soma</span>
-                    <div class="math-scroll">\( S_{12} = \frac{(3 + 36) \cdot 12}{2} = 234 \)</div>
+                <span class="q-tag">35) Soma 40 Ímpares</span>
+                <div class="math-scroll">
+                    <span class="sub-label">1º Achar \(a_{40}\):</span>
+                    \(a_{40} = 1 + 39 \cdot 2 = 79\)<br><br>
+                    <span class="sub-label">2º Calcular Soma:</span>
+                    \(S_{40} = \frac{(1 + 79) \cdot 40}{2} = 1600\)
                 </div>
             </div>
             <div class="card">
-                <span class="q-label">Questão 35</span>
-                <div>Soma dos 40 primeiros ímpares</div>
-                <div class="box-solucao">
-                    <span class="sub-titulo">Passo 1: Achar o \(a_{40}\)</span>
-                    <div class="math-scroll">\( a_{40} = 1 + (39 \cdot 2) = 79 \)</div>
-                    <span class="sub-titulo">Passo 2: Calcular a soma</span>
-                    <div class="math-scroll">\( S_{40} = \frac{(1 + 79) \cdot 40}{2} = 1600 \)</div>
-                </div>
+                <span class="q-tag">38 e 40</span>
+                <p>38) Soma 1 a 200:</p>
+                <div class="math-scroll">\(S_{200} = \frac{(1 + 200) \cdot 200}{2} = 20100\)</div>
+                <p>40) S_{20} com \(a_1=15, a_{20}=91\):</p>
+                <div class="math-scroll">\(S_{20} = \frac{(15 + 91) \cdot 20}{2} = 1060\)</div>
             </div>
         </div>
     </div>
 
-    <div class="footer-nav">
-        <button id="btnPrev" onclick="nav(-1)" disabled>Anterior</button>
-        <span id="pageTxt" style="font-size: 0.9rem; font-weight: bold;">1 / 3</span>
-        <button id="btnNext" onclick="nav(1)">Próximo</button>
+    <div class="nav">
+        <button id="prev" onclick="move(-1)" disabled>Anterior</button>
+        <span id="pageTxt" style="font-weight:bold">1 / 6</span>
+        <button id="next" onclick="move(1)">Próximo</button>
     </div>
 </div>
 
 <script>
-    let cur = 1;
-    const total = 3;
-
-    function nav(d) {
-        document.getElementById('p' + cur).classList.add('hidden');
+    let cur = 1; const total = 6;
+    function move(d) {
+        document.getElementById('step'+cur).classList.add('hidden');
         cur += d;
-        document.getElementById('p' + cur).classList.remove('hidden');
-        
-        document.getElementById('btnPrev').disabled = cur === 1;
-        document.getElementById('btnNext').innerText = cur === total ? "Início" : "Próximo";
-        if(cur > total) { location.reload(); }
-
+        document.getElementById('step'+cur).classList.remove('hidden');
+        document.getElementById('prev').disabled = cur === 1;
+        document.getElementById('next').innerText = cur === total ? "Início" : "Próximo";
+        if(cur > total) location.reload();
         document.getElementById('pageTxt').innerText = cur + ' / ' + total;
-        document.getElementById('bar').style.width = ((cur-1)/(total-1)*100) + '%';
+        document.getElementById('fill').style.width = ((cur-1)/(total-1)*100) + '%';
         window.scrollTo(0,0);
     }
 </script>
