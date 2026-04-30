@@ -3,182 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabarito PA Completo (1-40)</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>EduLib Pro | CEPV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary: #1a73e8; --success: #1e8e3e; --bg: #f8f9fa; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #202124; }
-        .app-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: var(--primary); color: white; padding: 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 1.2rem; }
-        .header p { margin: 5px 0 0; font-size: 0.8rem; opacity: 0.9; }
-        .progress-bar { height: 6px; background: #e8eaed; width: 100%; }
-        .progress-fill { height: 100%; background: #f9ab00; width: 0%; transition: 0.4s; }
-        .content { padding: 20px; min-height: 500px; }
-        .section-title { color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; }
-        .card { border: 1px solid #dadce0; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
-        .q-tag { display: inline-block; background: #e8f0fe; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; }
-        .math-scroll { overflow-x: auto; padding: 10px 0; background: #f8f9fa; border-radius: 5px; margin: 10px 0; border-left: 4px solid var(--success); padding-left: 10px; }
-        .sub-label { display: block; font-size: 0.75rem; font-weight: bold; color: #d93025; text-transform: uppercase; margin-bottom: 5px; }
-        .justifica { font-size: 0.85rem; color: #5f6368; line-height: 1.4; margin-top: 10px; font-style: italic; }
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-top: 1px solid #eee; background: white; }
-        button { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        button:disabled { background: #bdc1c6; }
-        .hidden { display: none; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .vencido { color: #dc2626; background: #fee2e2; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 10px; }
+        .no-prazo { color: #16a34a; background: #dcfce7; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 10px; }
+        .historico-badge { color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 10px; }
+        
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-animate { animation: fadeIn 0.2s ease-out; }
+        canvas { touch-action: none; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-<div class="app-container">
-    <div class="header">
-        <h1>Gabarito PA: 1 a 40</h1>
-        <p>Resolução Detalhada Passo a Passo</p>
-    </div>
-    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
-
-    <div class="content" id="main">
-        <div id="step1" class="page">
-            <h2 class="section-title">1. Identificação</h2>
-            <div class="card">
-                <span class="q-tag">1 a 5</span>
-                <div>1) (3,6,9...) <b>Sim</b> (r=3)</div>
-                <div>2) (10,20,30,45...) <b>Não</b> (razão variou)</div>
-                <div>3) (7,7,7...) <b>Sim</b> (r=0)</div>
-                <div>4) (1,4,9...) <b>Não</b> (quadrados)</div>
-                <div>5) (100,85,70...) <b>Sim</b> (r=-15)</div>
-            </div>
-            <div class="card">
-                <span class="q-tag">6 a 10</span>
-                <div>6) (2,4,8...) <b>Não</b> (é PG)</div>
-                <div>7) (50,45,40...) <b>Sim</b> (r=-5)</div>
-                <div>8) (1/3, 2/3, 1...) <b>Sim</b> (r=1/3)</div>
-                <div>9) (-8,-5,-2...) <b>Sim</b> (r=3)</div>
-                <div>10) (0,-3,-6,-10...) <b>Não</b> (razão variou)</div>
-            </div>
-        </div>
-
-        <div id="step2" class="page hidden">
-            <h2 class="section-title">2. Elementos (\(a_1\) e \(r\))</h2>
-            <div class="card">
-                <span class="q-tag">11 a 15</span>
-                11) \(a_1=4, r=6\)<br>
-                12) \(a_1=30, r=-6\)<br>
-                13) \(a_1=9, r=0\)<br>
-                14) \(a_1=-2, r=-4\)<br>
-                15) \(a_1=15, r=15\)
-            </div>
-            <div class="card">
-                <span class="q-tag">16 a 20</span>
-                16) \(a_1=5, r=8\)<br>
-                17) \(a_1=-15, r=5\)<br>
-                18) \(a_1=0, r=0.4\)<br>
-                19) \(a_1=200, r=-50\)<br>
-                20) \(a_1=y, r=5\)
-            </div>
-        </div>
-
-        <div id="step3" class="page hidden">
-            <h2 class="section-title">3. Termo Geral (a_n)</h2>
-            <div class="card">
-                <span class="q-tag">21 e 22</span>
-                <p>21) \(a_6\) para \(a_1=8, r=3\):</p>
-                <div class="math-scroll">\(a_6 = 8 + (5 \cdot 3) = 23\)</div>
-                <p>22) \(a_{12}\) para \(a_1=2, r=6\):</p>
-                <div class="math-scroll">\(a_{12} = 2 + (11 \cdot 6) = 68\)</div>
-            </div>
-            <div class="card">
-                <span class="q-tag">23 e 24</span>
-                <p>23) \(a_{10}\) para \(a_1=1, r=12\):</p>
-                <div class="math-scroll">\(a_{10} = 1 + (9 \cdot 12) = 109\)</div>
-                <p>24) \(a_4\) para \(a_1=20, r=2.5\):</p>
-                <div class="math-scroll">\(a_4 = 20 + (3 \cdot 2.5) = 27.5\)</div>
-            </div>
-        </div>
-
-        <div id="step4" class="page hidden">
-            <h2 class="section-title">3. Termo Geral (Cont.)</h2>
-            <div class="card">
-                <span class="q-tag">25 e 26</span>
-                <p>25) \(a_7\) para \(a_1=-10, r=-3\):</p>
-                <div class="math-scroll">\(a_7 = -10 + (6 \cdot -3) = -28\)</div>
-                <p>26) \(a_5\) para \(a_1=15, r=-4\):</p>
-                <div class="math-scroll">\(a_5 = 15 + (4 \cdot -4) = -1\)</div>
-            </div>
-            <div class="card">
-                <span class="q-tag">27 a 30</span>
-                <p>27) \(a_8\) (\(a_1=-4, r=7\)): <b>45</b></p>
-                <p>28) \(a_{15}\) (\(a_1=50, r=-5\)): <b>-20</b></p>
-                <p>29) \(a_{100}\) (\(a_1=3, r=3\)): <b>300</b></p>
-                <p>30) \(a_{20}\) (\(a_1=0.5, r=0.5\)): <b>10</b></p>
-            </div>
-        </div>
-
-        <div id="step5" class="page hidden">
-            <h2 class="section-title">4. Somas (S_n)</h2>
-            <div class="card">
-                <span class="q-tag">31) S_{12} de (3,6,9...)</span>
-                <div class="math-scroll">
-                    <span class="sub-label">1º Achar \(a_{12}\):</span>
-                    \(a_{12} = 3 + 11 \cdot 3 = 36\)<br><br>
-                    <span class="sub-label">2º Calcular Soma:</span>
-                    \(S_{12} = \frac{(3 + 36) \cdot 12}{2} = 234\)
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+        <div class="bg-white w-full max-w-md p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100">
+            <div class="text-center mb-8">
+                <div class="bg-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg">
+                    <i data-lucide="shield-check" class="w-8 h-8"></i>
                 </div>
+                <h1 class="text-2xl font-black text-slate-800 leading-tight">CEPV<br><span class="text-indigo-600 text-lg uppercase tracking-widest">Prisco Viana</span></h1>
             </div>
-            <div class="card">
-                <span class="q-tag">32) S_{25} de (4,8,12...)</span>
-                <div class="math-scroll">
-                    <span class="sub-label">1º Achar \(a_{25}\):</span>
-                    \(a_{25} = 4 + 24 \cdot 4 = 100\)<br><br>
-                    <span class="sub-label">2º Calcular Soma:</span>
-                    \(S_{25} = \frac{(4 + 100) \cdot 25}{2} = 1300\)
-                </div>
-            </div>
-        </div>
-
-        <div id="step6" class="page hidden">
-            <h2 class="section-title">4. Somas (Cont.)</h2>
-            <div class="card">
-                <span class="q-tag">35) Soma 40 Ímpares</span>
-                <div class="math-scroll">
-                    <span class="sub-label">1º Achar \(a_{40}\):</span>
-                    \(a_{40} = 1 + 39 \cdot 2 = 79\)<br><br>
-                    <span class="sub-label">2º Calcular Soma:</span>
-                    \(S_{40} = \frac{(1 + 79) \cdot 40}{2} = 1600\)
-                </div>
-            </div>
-            <div class="card">
-                <span class="q-tag">38 e 40</span>
-                <p>38) Soma 1 a 200:</p>
-                <div class="math-scroll">\(S_{200} = \frac{(1 + 200) \cdot 200}{2} = 20100\)</div>
-                <p>40) S_{20} com \(a_1=15, a_{20}=91\):</p>
-                <div class="math-scroll">\(S_{20} = \frac{(15 + 91) \cdot 20}{2} = 1060\)</div>
+            <div class="space-y-4">
+                <input type="text" id="usuario" placeholder="Usuário" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                <input type="password" id="senha" placeholder="Senha" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                <button onclick="autenticar()" class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-all">Entrar no Sistema</button>
+                <p id="login-error" class="hidden text-red-500 text-center text-sm font-bold">Acesso Negado</p>
             </div>
         </div>
     </div>
 
-    <div class="nav">
-        <button id="prev" onclick="move(-1)" disabled>Anterior</button>
-        <span id="pageTxt" style="font-weight:bold">1 / 6</span>
-        <button id="next" onclick="move(1)">Próximo</button>
+    <div id="app-content" class="hidden min-h-screen flex flex-col md:flex-row items-start">
+        
+        <aside class="w-full md:w-72 bg-white border-b md:border-r border-slate-200 flex flex-col z-20 md:sticky md:top-0 md:h-screen">
+            <div class="p-6 md:p-8 border-b border-slate-100 flex items-center justify-between md:justify-start gap-3">
+                <div class="flex items-center gap-2 font-black text-xl text-indigo-600">
+                    <i data-lucide="library"></i> CEPV
+                </div>
+                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-bold">PRO</span>
+            </div>
+            
+            <nav class="flex md:flex-col overflow-x-auto md:overflow-x-visible p-4 md:p-6 gap-2 flex-1 scrollbar-hide">
+                <button onclick="switchTab('emprestimos')" id="btn-emprestimos" class="flex-shrink-0 flex items-center gap-3 p-3 md:p-4 rounded-xl font-bold transition-all bg-indigo-50 text-indigo-700">
+                    <i data-lucide="layout-grid"></i> <span>Atividade</span>
+                </button>
+                <button onclick="switchTab('catalogo')" id="btn-catalogo" class="flex-shrink-0 flex items-center gap-3 p-3 md:p-4 rounded-xl font-bold text-slate-400 hover:bg-slate-50 transition-all">
+                    <i data-lucide="book-marked"></i> <span>Acervo</span>
+                </button>
+                <button onclick="switchTab('historico')" id="btn-historico" class="flex-shrink-0 flex items-center gap-3 p-3 md:p-4 rounded-xl font-bold text-slate-400 hover:bg-slate-50 transition-all">
+                    <i data-lucide="history"></i> <span>Histórico</span>
+                </button>
+            </nav>
+            
+            <div class="p-4 md:p-6 border-t border-slate-100 flex md:flex-col gap-3">
+                <button onclick="exportarBackup()" class="flex-1 md:w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white rounded-xl text-[10px] font-black uppercase tracking-widest">
+                    <i data-lucide="download-cloud" class="w-4 h-4"></i> Backup CSV
+                </button>
+                <button onclick="location.reload()" class="p-3 text-red-400 hover:text-red-600 transition-colors flex justify-center"><i data-lucide="log-out"></i></button>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-10 bg-[#f8fafc] min-h-screen w-full">
+            <section id="emprestimos" class="tab-content active">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Empréstimos</h2>
+                        <p class="text-slate-500">Controle de livros em circulação</p>
+                    </div>
+                    <button onclick="openModal('modalEmprestimo')" class="w-full md:w-auto bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="plus-circle"></i> Novo Registro
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-4 top-4 w-5 h-5 text-slate-400"></i>
+                        <input type="text" id="buscAtivos" oninput="renderData()" placeholder="Buscar aluno..." class="w-full p-4 pl-12 rounded-2xl border border-slate-200 outline-none focus:border-indigo-500">
+                    </div>
+                    <select id="filtAtivosTurma" onchange="renderData()" class="p-4 rounded-2xl border border-slate-200 bg-white font-bold text-slate-700 outline-none"></select>
+                    <select id="filtAtivosStatus" onchange="renderData()" class="p-4 rounded-2xl border border-slate-200 bg-white font-bold text-slate-700 outline-none">
+                        <option value="todos">Todos os Status</option>
+                        <option value="atrasados">⚠️ Atrasados</option>
+                    </select>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[800px]">
+                            <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase font-black">
+                                <tr>
+                                    <th class="p-6">Estudante / Turma</th>
+                                    <th class="p-6">Livro</th>
+                                    <th class="p-6 text-center">Vencimento</th>
+                                    <th class="p-6 text-center">Status</th>
+                                    <th class="p-6 text-center">Assinatura</th>
+                                    <th class="p-6 text-center">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaEmprestimos" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="catalogo" class="tab-content">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Nosso Acervo</h2>
+                    <button onclick="prepararInclusaoLivro()" class="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg flex items-center gap-2">
+                        <i data-lucide="book-plus"></i> Novo Livro
+                    </button>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[500px]">
+                            <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase font-black">
+                                <tr>
+                                    <th class="p-6">Título e Autor</th>
+                                    <th class="p-6 text-center">Estoque (Disp/Total)</th>
+                                    <th class="p-6 text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaLivros" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="historico" class="tab-content">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-8 tracking-tight">Histórico Geral</h2>
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[700px]">
+                            <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase font-black">
+                                <tr>
+                                    <th class="p-6">Aluno</th>
+                                    <th class="p-6">Obra</th>
+                                    <th class="p-6 text-center">Devolvido em</th>
+                                    <th class="p-6 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaHistorico" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</div>
 
-<script>
-    let cur = 1; const total = 6;
-    function move(d) {
-        document.getElementById('step'+cur).classList.add('hidden');
-        cur += d;
-        document.getElementById('step'+cur).classList.remove('hidden');
-        document.getElementById('prev').disabled = cur === 1;
-        document.getElementById('next').innerText = cur === total ? "Início" : "Próximo";
-        if(cur > total) location.reload();
-        document.getElementById('pageTxt').innerText = cur + ' / ' + total;
-        document.getElementById('fill').style.width = ((cur-1)/(total-1)*100) + '%';
-        window.scrollTo(0,0);
-    }
-</script>
+    <div id="modalEmprestimo" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 w-full max-w-md modal-animate shadow-2xl overflow-y-auto max-h-[95vh]">
+            <h3 class="text-2xl font-black mb-2">Registrar Saída</h3>
+            <p class="text-slate-400 text-sm mb-6">O aluno deve assinar para confirmar a retirada.</p>
+            
+            <div class="space-y-4">
+                <input type="text" id="empAluno" placeholder="Nome completo do aluno" class="w-full border p-4 rounded-xl outline-none bg-slate-50 focus:bg-white focus:border-indigo-500 transition-all">
+                <input type="text" id="empTurma" placeholder="Turma (ex: 3º Ano A)" class="w-full border p-4 rounded-xl outline-none bg-slate-50 focus:bg-white focus:border-indigo-500 transition-all">
+                <input list="listaSugestoesLivros" id="empLivroNome" placeholder="Pesquisar livro no acervo..." class="w-full border-2 border-indigo-50 p-4 rounded-xl outline-none focus:border-indigo-500 font-bold">
+                <datalist id="listaSugestoesLivros"></datalist>
+                
+                <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <span class="text-xs font-black text-slate-400 uppercase">Prazo (Dias):</span>
+                    <input type="number" id="empDias" value="7" class="bg-transparent font-black text-xl w-full text-indigo-600 outline-none">
+                </div>
 
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block">Assinatura Digital (Aluno)</label>
+                    <canvas id="signature-pad" class="w-full h-32 bg-white border border-slate-200 rounded-lg"></canvas>
+                    <button onclick="clearSignature()" class="text-[10px] text-red-500 font-bold mt-2 uppercase">Limpar Assinatura</button>
+                </div>
+
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal('modalEmprestimo')" class="flex-1 font-bold text-slate-400 p-4 hover:bg-slate-50 rounded-xl transition">Cancelar</button>
+                    <button onclick="salvarEmprestimo()" class="flex-[2] bg-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-indigo-100">Confirmar Saída</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalVerAssinatura" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm text-center modal-animate">
+            <h3 class="text-xl font-black mb-4">Comprovante de Retirada</h3>
+            <img id="imgAssinaturaView" class="border border-slate-200 rounded-xl mx-auto mb-6 bg-slate-50" src="" alt="Assinatura">
+            <button onclick="closeModal('modalVerAssinatura')" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modalCatalogo" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-md modal-animate shadow-2xl">
+            <h3 id="modalLivroTitulo" class="text-2xl font-black mb-6">Cadastro de Obra</h3>
+            <input type="hidden" id="bookId">
+            <div class="space-y-4">
+                <input type="text" id="bookTitulo" placeholder="Título do Livro" class="w-full border p-4 rounded-xl outline-none focus:border-emerald-500 transition-all">
+                <input type="text" id="bookAutor" placeholder="Autor / Editora" class="w-full border p-4 rounded-xl outline-none focus:border-emerald-500 transition-all">
+                <input type="number" id="bookQtd" placeholder="Quantidade Total" class="w-full border p-4 rounded-xl outline-none focus:border-emerald-500 transition-all">
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal('modalCatalogo')" class="flex-1 font-bold text-slate-400 p-4">Voltar</button>
+                    <button onclick="salvarLivro()" class="flex-[2] bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-lg">Salvar Livro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let livros = JSON.parse(localStorage.getItem('eduLib_livros')) || [];
+        let emprestimos = JSON.parse(localStorage.getItem('eduLib_emprestimos')) || [];
+        let historico = JSON.parse(localStorage.getItem('eduLib_historico')) || [];
+        let signaturePad;
+
+        function persistir() {
+            localStorage.setItem('eduLib_livros', JSON.stringify(livros));
+            localStorage.setItem('eduLib_emprestimos', JSON.stringify(emprestimos));
+            localStorage.setItem('eduLib_historico', JSON.stringify(historico));
+        }
+
+        function autenticar() {
+            const u = document.getElementById('usuario').value;
+            const s = document.getElementById('senha').value;
+            if(u === "Cardoso" && s === "24") {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('app-content').classList.remove('hidden');
+                renderData();
+            } else {
+                const err = document.getElementById('login-error');
+                err.classList.remove('hidden');
+                setTimeout(() => err.classList.add('hidden'), 2000);
+            }
+        }
+
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('bg-indigo-50', 'text-indigo-700');
+                b.classList.add('text-slate-400');
+            });
+            document.getElementById(id).classList.add('active');
+            document.getElementById('btn-'+id).classList.add('bg-indigo-50', 'text-indigo-700');
+            document.getElementById('btn-'+id).classList.remove('text-slate-400');
+            renderData();
+        }
+
+        function openModal(id) { 
+            document.getElementById(id).classList.remove('hidden'); 
+            if(id === 'modalEmprestimo') {
+                const canvas = document.getElementById('signature-pad');
+                signaturePad = new SignaturePad(canvas);
+                
+                // Ajustar resolução interna do canvas
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+                signaturePad.clear();
+
+                const dl = document.getElementById('listaSugestoesLivros');
+                dl.innerHTML = livros.filter(l => l.disponivel > 0).map(l => `<option value="${l.titulo}">`).join('');
+            }
+        }
+
+        function clearSignature() { signaturePad.clear(); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function verAssinatura(id) {
+            const emp = emprestimos.find(e => e.id == id);
+            if(emp && emp.assinatura) {
+                document.getElementById('imgAssinaturaView').src = emp.assinatura;
+                openModal('modalVerAssinatura');
+            }
+        }
+
+        // --- FUNÇÕES DE LIVROS ---
+        function prepararInclusaoLivro() {
+            document.getElementById('modalLivroTitulo').innerText = "Novo Título";
+            document.getElementById('bookId').value = "";
+            document.getElementById('bookTitulo').value = "";
+            document.getElementById('bookAutor').value = "";
+            document.getElementById('bookQtd').value = "";
+            openModal('modalCatalogo');
+        }
+
+        function editarLivro(id) {
+            const l = livros.find(liv => liv.id == id);
+            document.getElementById('modalLivroTitulo').innerText = "Editar Obra";
+            document.getElementById('bookId').value = l.id;
+            document.getElementById('bookTitulo').value = l.titulo;
+            document.getElementById('bookAutor').value = l.autor;
+            document.getElementById('bookQtd').value = l.total;
+            openModal('modalCatalogo');
+        }
+
+        function salvarLivro() {
+            const id = document.getElementById('bookId').value;
+            const t = document.getElementById('bookTitulo').value;
+            const a = document.getElementById('bookAutor').value;
+            const q = parseInt(document.getElementById('bookQtd').value);
+            
+            if(!t || isNaN(q)) return alert("Preencha os campos obrigatórios.");
+
+            if(id) {
+                const l = livros.find(liv => liv.id == id);
+                const diff = q - l.total;
+                l.total = q;
+                l.disponivel += diff;
+                l.titulo = t; l.autor = a;
+            } else {
+                livros.push({ id: Date.now(), titulo: t, autor: a, total: q, disponivel: q });
+            }
+            persistir(); closeModal('modalCatalogo'); renderData();
+        }
+
+        function excluirLivro(id) {
+            if(confirm("Deseja remover este livro do acervo permanentemente?")) {
+                livros = livros.filter(l => l.id != id);
+                persistir(); renderData();
+            }
+        }
+
+        // --- FUNÇÕES DE EMPRÉSTIMO ---
+        function salvarEmprestimo() {
+            const titulo = document.getElementById('empLivroNome').value;
+            const liv = livros.find(l => l.titulo === titulo);
+            const aluno = document.getElementById('empAluno').value;
+            const turma = document.getElementById('empTurma').value;
+
+            if (signaturePad.isEmpty()) return alert("O aluno precisa assinar para validar o empréstimo!");
+            if(!liv || liv.disponivel <= 0 || !aluno) return alert("Verifique os dados e o estoque!");
+
+            const d = parseInt(document.getElementById('empDias').value);
+            const dev = new Date(); dev.setDate(new Date().getDate() + d);
+
+            emprestimos.push({
+                id: Date.now(),
+                aluno: aluno,
+                turma: turma || "N/A",
+                livroId: liv.id,
+                livroTitulo: liv.titulo,
+                dataPrevista: dev.toISOString().split('T')[0],
+                assinatura: signaturePad.toDataURL() // Salva a assinatura como base64
+            });
+
+            liv.disponivel--;
+            persistir(); closeModal('modalEmprestimo'); renderData();
+        }
+
+        function devolver(id) {
+            const e = emprestimos.find(emp => emp.id == id);
+            const l = livros.find(liv => liv.id == e.livroId);
+            const hoje = new Date().toISOString().split('T')[0];
+            
+            historico.unshift({
+                aluno: e.aluno, turma: e.turma, livroTitulo: e.livroTitulo,
+                dataEntregaReal: hoje, statusFinal: hoje > e.dataPrevista ? '⚠️ ATRASADO' : '✓ NO PRAZO'
+            });
+
+            if(l) l.disponivel++;
+            emprestimos = emprestimos.filter(emp => emp.id != id);
+            persistir(); renderData();
+        }
+
+        function exportarBackup() {
+            let csv = "TIPO;ALUNO;TURMA;LIVRO;DATA;STATUS\n";
+            emprestimos.forEach(e => csv += `ATIVO;${e.aluno};${e.turma};${e.livroTitulo};${e.dataPrevista};PENDENTE\n`);
+            historico.forEach(h => csv += `HISTORICO;${h.aluno};${h.turma};${h.livroTitulo};${h.dataEntregaReal};${h.statusFinal}\n`);
+            const blob = new Blob(["\ufeff", csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `backup_edulib_cepv.csv`;
+            link.click();
+        }
+
+        function renderData() {
+            const hoje = new Date().toISOString().split('T')[0];
+            const busca = document.getElementById('buscAtivos').value.toLowerCase();
+            const fTurma = document.getElementById('filtAtivosTurma').value;
+            const fStatus = document.getElementById('filtAtivosStatus').value;
+
+            const turmas = [...new Set(emprestimos.map(e => e.turma))].sort();
+            document.getElementById('filtAtivosTurma').innerHTML = '<option value="">Todas as Turmas</option>' + 
+                turmas.map(t => `<option value="${t}" ${t===fTurma?'selected':''}>${t}</option>`).join('');
+
+            document.getElementById('listaEmprestimos').innerHTML = emprestimos.filter(e => {
+                const mBusca = e.aluno.toLowerCase().includes(busca) || e.livroTitulo.toLowerCase().includes(busca);
+                const mTurma = !fTurma || e.turma === fTurma;
+                const mAtraso = fStatus === 'atrasados' ? hoje > e.dataPrevista : true;
+                return mBusca && mTurma && mAtraso;
+            }).map(e => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-6 font-bold text-slate-800">${e.aluno}<br><span class="text-[10px] text-slate-400 uppercase font-normal">${e.turma}</span></td>
+                    <td class="p-6 text-slate-600 text-sm">${e.livroTitulo}</td>
+                    <td class="p-6 text-center font-mono font-bold text-slate-500">${e.dataPrevista.split('-').reverse().join('/')}</td>
+                    <td class="p-6 text-center"><span class="${hoje > e.dataPrevista ? 'vencido' : 'no-prazo'}">${hoje > e.dataPrevista ? 'VENCIDO' : 'NO PRAZO'}</span></td>
+                    <td class="p-6 text-center"><button onclick="verAssinatura(${e.id})" class="text-indigo-600 bg-indigo-50 p-2 rounded-lg hover:bg-indigo-100 transition"><i data-lucide="eye" class="w-4 h-4"></i></button></td>
+                    <td class="p-6 text-center"><button onclick="devolver(${e.id})" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition">Devolver</button></td>
+                </tr>`).join('');
+
+            document.getElementById('listaLivros').innerHTML = livros.map(l => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-6 font-bold text-slate-800">${l.titulo}<br><span class="text-[10px] text-slate-400 font-normal uppercase">${l.autor}</span></td>
+                    <td class="p-6 text-center"><span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-black text-xs">${l.disponivel} / ${l.total}</span></td>
+                    <td class="p-6 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button onclick="editarLivro(${l.id})" class="text-indigo-500 hover:bg-indigo-50 p-2 rounded-lg transition-colors"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                            <button onclick="excluirLivro(${l.id})" class="text-red-400 hover:bg-red-50 p-2 rounded-lg transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </div>
+                    </td>
+                </tr>`).join('');
+
+            document.getElementById('listaHistorico').innerHTML = historico.map(h => `
+                <tr class="hover:bg-slate-50 transition text-sm">
+                    <td class="p-6 font-bold text-slate-700">${h.aluno}<br><span class="text-[10px] text-slate-400 uppercase font-normal">${h.turma}</span></td>
+                    <td class="p-6 italic text-slate-500">${h.livroTitulo}</td>
+                    <td class="p-6 text-center text-slate-400">${h.dataEntregaReal.split('-').reverse().join('/')}</td>
+                    <td class="p-6 text-center"><span class="historico-badge">${h.statusFinal}</span></td>
+                </tr>`).join('');
+
+            lucide.createIcons();
+        }
+
+        window.onload = () => { lucide.createIcons(); };
+    </script>
 </body>
 </html>
