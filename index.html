@@ -24,7 +24,7 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .modal-animate { animation: fadeIn 0.2s ease-out; }
-        canvas { touch-action: none; }
+        canvas { touch-action: none; cursor: crosshair; }
     </style>
 </head>
 <body class="antialiased">
@@ -171,8 +171,13 @@
             <div class="space-y-4">
                 <input type="text" id="empAluno" placeholder="Nome completo do aluno" class="w-full border p-4 rounded-xl outline-none bg-slate-50 focus:bg-white focus:border-indigo-500 transition-all">
                 <input type="text" id="empTurma" placeholder="Turma (ex: 3º Ano A)" class="w-full border p-4 rounded-xl outline-none bg-slate-50 focus:bg-white focus:border-indigo-500 transition-all">
-                <input list="listaSugestoesLivros" id="empLivroNome" placeholder="Pesquisar livro no acervo..." class="w-full border-2 border-indigo-50 p-4 rounded-xl outline-none focus:border-indigo-500 font-bold">
-                <datalist id="listaSugestoesLivros"></datalist>
+                
+                <div class="relative">
+                    <input list="listaSugestoesLivros" id="empLivroNome" placeholder="Pesquisar livro no acervo..." 
+                           class="w-full border-2 border-indigo-50 p-4 rounded-xl outline-none focus:border-indigo-500 font-bold"
+                           autocomplete="off">
+                    <datalist id="listaSugestoesLivros"></datalist>
+                </div>
                 
                 <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
                     <span class="text-xs font-black text-slate-400 uppercase">Prazo (Dias):</span>
@@ -193,14 +198,6 @@
         </div>
     </div>
 
-    <div id="modalVerAssinatura" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm text-center modal-animate">
-            <h3 class="text-xl font-black mb-4">Comprovante de Retirada</h3>
-            <img id="imgAssinaturaView" class="border border-slate-200 rounded-xl mx-auto mb-6 bg-slate-50" src="" alt="Assinatura">
-            <button onclick="closeModal('modalVerAssinatura')" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold">Fechar</button>
-        </div>
-    </div>
-
     <div id="modalCatalogo" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-[2.5rem] p-8 w-full max-w-md modal-animate shadow-2xl">
             <h3 id="modalLivroTitulo" class="text-2xl font-black mb-6">Cadastro de Obra</h3>
@@ -214,6 +211,14 @@
                     <button onclick="salvarLivro()" class="flex-[2] bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-lg">Salvar Livro</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="modalVerAssinatura" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm text-center modal-animate">
+            <h3 class="text-xl font-black mb-4">Comprovante</h3>
+            <img id="imgAssinaturaView" class="border border-slate-200 rounded-xl mx-auto mb-6 bg-slate-50" src="" alt="Assinatura">
+            <button onclick="closeModal('modalVerAssinatura')" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold">Fechar</button>
         </div>
     </div>
 
@@ -258,18 +263,18 @@
         function openModal(id) { 
             document.getElementById(id).classList.remove('hidden'); 
             if(id === 'modalEmprestimo') {
+                // Atualiza sugestões de livros
+                const dl = document.getElementById('listaSugestoesLivros');
+                dl.innerHTML = livros.filter(l => l.disponivel > 0).map(l => `<option value="${l.titulo}">`).join('');
+                
+                // Inicializa assinatura
                 const canvas = document.getElementById('signature-pad');
                 signaturePad = new SignaturePad(canvas);
-                
-                // Ajustar resolução interna do canvas
                 const ratio = Math.max(window.devicePixelRatio || 1, 1);
                 canvas.width = canvas.offsetWidth * ratio;
                 canvas.height = canvas.offsetHeight * ratio;
                 canvas.getContext("2d").scale(ratio, ratio);
                 signaturePad.clear();
-
-                const dl = document.getElementById('listaSugestoesLivros');
-                dl.innerHTML = livros.filter(l => l.disponivel > 0).map(l => `<option value="${l.titulo}">`).join('');
             }
         }
 
@@ -284,33 +289,14 @@
             }
         }
 
-        // --- FUNÇÕES DE LIVROS ---
-        function prepararInclusaoLivro() {
-            document.getElementById('modalLivroTitulo').innerText = "Novo Título";
-            document.getElementById('bookId').value = "";
-            document.getElementById('bookTitulo').value = "";
-            document.getElementById('bookAutor').value = "";
-            document.getElementById('bookQtd').value = "";
-            openModal('modalCatalogo');
-        }
-
-        function editarLivro(id) {
-            const l = livros.find(liv => liv.id == id);
-            document.getElementById('modalLivroTitulo').innerText = "Editar Obra";
-            document.getElementById('bookId').value = l.id;
-            document.getElementById('bookTitulo').value = l.titulo;
-            document.getElementById('bookAutor').value = l.autor;
-            document.getElementById('bookQtd').value = l.total;
-            openModal('modalCatalogo');
-        }
-
+        // --- SALVAR LIVRO (ACERVO) ---
         function salvarLivro() {
             const id = document.getElementById('bookId').value;
             const t = document.getElementById('bookTitulo').value;
             const a = document.getElementById('bookAutor').value;
             const q = parseInt(document.getElementById('bookQtd').value);
             
-            if(!t || isNaN(q)) return alert("Preencha os campos obrigatórios.");
+            if(!t || isNaN(q)) return alert("Preencha título e quantidade.");
 
             if(id) {
                 const l = livros.find(liv => liv.id == id);
@@ -321,25 +307,26 @@
             } else {
                 livros.push({ id: Date.now(), titulo: t, autor: a, total: q, disponivel: q });
             }
-            persistir(); closeModal('modalCatalogo'); renderData();
+            
+            persistir(); 
+            closeModal('modalCatalogo'); 
+            renderData();
+            // Limpa campos do catálogo
+            document.getElementById('bookTitulo').value = "";
+            document.getElementById('bookAutor').value = "";
+            document.getElementById('bookQtd').value = "";
+            document.getElementById('bookId').value = "";
         }
 
-        function excluirLivro(id) {
-            if(confirm("Deseja remover este livro do acervo permanentemente?")) {
-                livros = livros.filter(l => l.id != id);
-                persistir(); renderData();
-            }
-        }
-
-        // --- FUNÇÕES DE EMPRÉSTIMO ---
+        // --- SALVAR EMPRÉSTIMO ---
         function salvarEmprestimo() {
             const titulo = document.getElementById('empLivroNome').value;
             const liv = livros.find(l => l.titulo === titulo);
             const aluno = document.getElementById('empAluno').value;
             const turma = document.getElementById('empTurma').value;
 
-            if (signaturePad.isEmpty()) return alert("O aluno precisa assinar para validar o empréstimo!");
-            if(!liv || liv.disponivel <= 0 || !aluno) return alert("Verifique os dados e o estoque!");
+            if (signaturePad.isEmpty()) return alert("O aluno precisa assinar!");
+            if(!liv || liv.disponivel <= 0 || !aluno) return alert("Livro não encontrado ou sem estoque.");
 
             const d = parseInt(document.getElementById('empDias').value);
             const dev = new Date(); dev.setDate(new Date().getDate() + d);
@@ -351,11 +338,20 @@
                 livroId: liv.id,
                 livroTitulo: liv.titulo,
                 dataPrevista: dev.toISOString().split('T')[0],
-                assinatura: signaturePad.toDataURL() // Salva a assinatura como base64
+                assinatura: signaturePad.toDataURL()
             });
 
             liv.disponivel--;
-            persistir(); closeModal('modalEmprestimo'); renderData();
+            persistir(); 
+            closeModal('modalEmprestimo'); 
+            renderData();
+
+            // LIMPAR CAMPOS APÓS SALVAR
+            document.getElementById('empLivroNome').value = "";
+            document.getElementById('empAluno').value = "";
+            document.getElementById('empTurma').value = "";
+            document.getElementById('empDias').value = "7";
+            signaturePad.clear();
         }
 
         function devolver(id) {
@@ -382,6 +378,32 @@
             link.href = URL.createObjectURL(blob);
             link.download = `backup_edulib_cepv.csv`;
             link.click();
+        }
+
+        function prepararInclusaoLivro() {
+            document.getElementById('modalLivroTitulo').innerText = "Novo Título";
+            document.getElementById('bookId').value = "";
+            document.getElementById('bookTitulo').value = "";
+            document.getElementById('bookAutor').value = "";
+            document.getElementById('bookQtd').value = "";
+            openModal('modalCatalogo');
+        }
+
+        function editarLivro(id) {
+            const l = livros.find(liv => liv.id == id);
+            document.getElementById('modalLivroTitulo').innerText = "Editar Obra";
+            document.getElementById('bookId').value = l.id;
+            document.getElementById('bookTitulo').value = l.titulo;
+            document.getElementById('bookAutor').value = l.autor;
+            document.getElementById('bookQtd').value = l.total;
+            openModal('modalCatalogo');
+        }
+
+        function excluirLivro(id) {
+            if(confirm("Deseja remover este livro?")) {
+                livros = livros.filter(l => l.id != id);
+                persistir(); renderData();
+            }
         }
 
         function renderData() {
