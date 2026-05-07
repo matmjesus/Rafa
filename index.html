@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: O Legado dos Sumérios</title>
+    <title>Quiz: O Legado dos Sumérios (Múltipla Escolha)</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,32 +35,49 @@
             margin-bottom: 25px;
         }
         .question {
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
             background: #faf7f2;
             border-left: 5px solid #d4a373;
-            border-radius: 4px;
+            border-radius: 8px;
         }
         .question p {
             font-weight: bold;
+            font-size: 1.1em;
             margin-top: 0;
+            margin-bottom: 15px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-label {
+            background: #fff;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .option-label:hover {
+            background: #f0e6d2;
+        }
+        .option-label input {
+            margin-right: 10px;
+            cursor: pointer;
         }
         .btn-check {
             background-color: #8b5e3c;
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
             display: block;
             margin: 30px auto;
             transition: background 0.3s;
@@ -69,15 +86,18 @@
             background-color: #5d3e29;
         }
         .feedback {
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
             display: none;
         }
-        .correct { color: #2e7d32; }
-        .wrong { color: #c62828; }
+        .correct-bg { background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .wrong-bg { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+        
         #result-area {
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             margin-top: 20px;
             padding: 20px;
@@ -89,8 +109,8 @@
 <body>
 
 <div class="container">
-    <h1>🏺 Desafio Sumério: O Berço da Civilização</h1>
-    <p class="intro">Olá, jovem historiador! Responda às perguntas abaixo e clique no botão ao final para ver sua pontuação. Lembre-se: os escribas sumérios levavam anos para aprender, então não tenha pressa!</p>
+    <h1>🏺 Desafio Sumério: Múltipla Escolha</h1>
+    <p class="intro">Atenção, turma! Leiam com cuidado as opções. Marquem a resposta correta e cliquem em "Finalizar e Corrigir" no final da página para verem como se saíram.</p>
 
     <div id="quiz">
         </div>
@@ -100,65 +120,186 @@
 </div>
 
 <script>
-    // Aqui estão as nossas perguntas da aula!
+    // Nossas 20 perguntas reformuladas com alternativas!
     const questions = [
-        { q: "Em qual região do mundo viviam os sumérios?", a: "mesopotamia" },
-        { q: "Quais são os dois rios principais que banhavam a Mesopotâmia?", a: "tigre e eufrates" },
-        { q: "Como se chamava a escrita feita com sinais em forma de cunha?", a: "cuneiforme" },
-        { q: "Qual o nome das torres em formato de pirâmide (templos)?", a: "zigurate" },
-        { q: "Os sumérios acreditavam em vários deuses. Eles eram...", a: "politeistas" },
-        { q: "Qual invenção suméria revolucionou o transporte?", a: "roda" },
-        { q: "Como se chamavam as cidades com governo próprio?", a: "cidades-estado" },
-        { q: "Material usado para escrever (tabletes de...)", a: "argila" },
-        { q: "A obra literária mais antiga é o 'Epos de...'", a: "gilgamesh" },
-        { q: "Sistema matemático baseado em qual número?", a: "60" },
-        { q: "Principal atividade econômica suméria?", a: "agricultura" },
-        { q: "Canais usados para levar água às plantações:", a: "irrigacao" },
-        { q: "O título do governante que era rei e sacerdote:", a: "patesi" },
-        { q: "Verdadeiro ou Falso: Os sumérios inventaram a cerveja.", a: "verdadeiro" },
-        { q: "Nome de uma das cidades mais antigas da Suméria:", a: "uruk" },
-        { q: "O círculo foi dividido por eles em quantos graus?", a: "360" },
-        { q: "Profissional responsável por registrar as leis e impostos:", a: "escriba" },
-        { q: "Objeto usado para 'assinar' documentos na argila:", a: "selo cilindrico" },
-        { q: "Os deuses eram considerados dóceis ou vingativos?", a: "vingativos" },
-        { q: "Metal criado pela mistura de cobre e estanho:", a: "bronze" }
+        { 
+            q: "Em qual região do mundo viviam os sumérios?", 
+            options: ["Egito", "Mesopotâmia", "Grécia", "Roma"], 
+            answer: 1 
+        },
+        { 
+            q: "Quais são os dois rios principais que banhavam a Mesopotâmia?", 
+            options: ["Nilo e Jordão", "Amazonas e São Francisco", "Tigre e Eufrates", "Ganges e Indo"], 
+            answer: 2 
+        },
+        { 
+            q: "Como se chamava a escrita criada pelos sumérios, feita com sinais em forma de cunha?", 
+            options: ["Hieróglifos", "Alfabeto Latino", "Ideogramas", "Escrita Cuneiforme"], 
+            answer: 3 
+        },
+        { 
+            q: "Qual era o nome das grandes torres em formato de pirâmide que serviam como templos?", 
+            options: ["Zigurates", "Obeliscos", "Panteões", "Mastabas"], 
+            answer: 0 
+        },
+        { 
+            q: "Os sumérios eram monoteístas (um deus) ou politeístas (vários deuses)?", 
+            options: ["Monoteístas", "Ateus", "Politeístas", "Animistas"], 
+            answer: 2 
+        },
+        { 
+            q: "Qual invenção suméria revolucionou o transporte e a cerâmica?", 
+            options: ["A Bússola", "A Roda", "A Pólvora", "O Papel"], 
+            answer: 1 
+        },
+        { 
+            q: "Como se chamavam as cidades sumérias que tinham governo e leis próprias?", 
+            options: ["Cidades-Estado", "Feudos", "Capitanias", "Impérios"], 
+            answer: 0 
+        },
+        { 
+            q: "Qual era o material usado pelos sumérios para escrever seus registros?", 
+            options: ["Papiro", "Folhas de palmeira", "Pergaminho (pele de animal)", "Tábuas de argila úmida"], 
+            answer: 3 
+        },
+        { 
+            q: "O 'Epos de Gilgamesh' é considerado uma das obras mais antigas de qual gênero?", 
+            options: ["Literatura (Epopeia)", "Matemática", "Medicina", "Astronomia"], 
+            answer: 0 
+        },
+        { 
+            q: "Os sumérios desenvolveram um sistema matemático baseado em qual número?", 
+            options: ["Base 10", "Base 12", "Base 60", "Base 100"], 
+            answer: 2 
+        },
+        { 
+            q: "Qual era a principal atividade econômica dos sumérios?", 
+            options: ["Comércio Marítimo", "Agricultura", "Mineração", "Caça"], 
+            answer: 1 
+        },
+        { 
+            q: "Como os sumérios levavam água dos rios para as plantações em épocas de seca?", 
+            options: ["Caminhões-pipa", "Canais de irrigação", "Aquedutos de pedra", "Poços artesianos profundos"], 
+            answer: 1 
+        },
+        { 
+            q: "Quem era a figura no topo da pirâmide social suméria, que era chefe militar e religioso?", 
+            options: ["O Patesi", "O Faraó", "O Imperador", "O Presidente"], 
+            answer: 0 
+        },
+        { 
+            q: "Verdadeiro ou Falso: Os sumérios são creditados pela invenção de uma bebida muito famosa hoje, a cerveja.", 
+            options: ["Falso", "Verdadeiro"], 
+            answer: 1 
+        },
+        { 
+            q: "Qual destas cidades é considerada uma das mais importantes e antigas da Suméria?", 
+            options: ["Atenas", "Esparta", "Uruk", "Cartago"], 
+            answer: 2 
+        },
+        { 
+            q: "Os sumérios dividiram o círculo em quantos graus?", 
+            options: ["100 graus", "180 graus", "360 graus", "400 graus"], 
+            answer: 2 
+        },
+        { 
+            q: "Qual era a função principal dos escribas na sociedade suméria?", 
+            options: ["Construir casas", "Lutar nas guerras", "Registrar impostos, leis e estoques", "Plantar trigo"], 
+            answer: 2 
+        },
+        { 
+            q: "Para que serviam os selos cilíndricos usados por esse povo?", 
+            options: ["Assinar documentos e marcar propriedades", "Moer grãos", "Decorar roupas", "Medir o tempo"], 
+            answer: 0 
+        },
+        { 
+            q: "Os sumérios acreditavam que os deuses eram:", 
+            options: ["Sempre bondosos", "Imprevisíveis e vingativos", "Indiferentes aos humanos", "Dóceis e calmos"], 
+            answer: 1 
+        },
+        { 
+            q: "Qual metal os sumérios aprenderam a manipular para criar ferramentas mais resistentes?", 
+            options: ["Ferro", "Aço", "Ouro", "Bronze (mistura de cobre com estanho)"], 
+            answer: 3 
+        }
     ];
 
     const quizContainer = document.getElementById('quiz');
 
-    // Colocando as perguntas na tela
+    // Gerando o HTML das perguntas
     questions.forEach((item, index) => {
         const qDiv = document.createElement('div');
         qDiv.className = 'question';
+        
+        let optionsHtml = '';
+        item.options.forEach((opt, optIndex) => {
+            optionsHtml += `
+                <label class="option-label" id="label-q${index}-o${optIndex}">
+                    <input type="radio" name="q${index}" value="${optIndex}">
+                    ${opt}
+                </label>
+            `;
+        });
+
         qDiv.innerHTML = `
             <p>${index + 1}. ${item.q}</p>
-            <input type="text" id="q${index}" placeholder="Sua resposta (sem acentos)...">
+            <div class="options">
+                ${optionsHtml}
+            </div>
             <div id="f${index}" class="feedback"></div>
         `;
         quizContainer.appendChild(qDiv);
     });
 
-    // Função que corrige o quiz
+    // Função de correção
     function checkQuiz() {
         let score = 0;
+
         questions.forEach((item, index) => {
-            // Pega o que o aluno digitou e tira letras maiúsculas e espaços extras
-            let userAns = document.getElementById(`q${index}`).value.toLowerCase().trim();
-            // Remove acentos para facilitar a correção
-            userAns = userAns.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+            const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+            const feedbackDiv = document.getElementById(`f${index}`);
             
-            const feedback = document.getElementById(`f${index}`);
-            
-            // Verificação simples
-            if (userAns.includes(item.a) || (item.a.includes(userAns) && userAns.length > 2)) {
-                score++;
-                feedback.innerHTML = "Correto! ✔️";
-                feedback.className = "feedback correct";
+            // Pega todos os labels dessa pergunta para limpar a formatação
+            const labels = document.querySelectorAll(`input[name="q${index}"]`);
+            labels.forEach(radio => {
+                radio.parentElement.style.backgroundColor = "#fff";
+                radio.parentElement.style.borderColor = "#ddd";
+            });
+
+            if (selectedOption) {
+                const answerValue = parseInt(selectedOption.value);
+                const correctLabel = document.getElementById(`label-q${index}-o${item.answer}`);
+                
+                if (answerValue === item.answer) {
+                    score++;
+                    feedbackDiv.innerHTML = "✅ Resposta Certa!";
+                    feedbackDiv.className = "feedback correct-bg";
+                    feedbackDiv.style.color = "#155724";
+                    correctLabel.style.backgroundColor = "#d4edda";
+                    correctLabel.style.borderColor = "#28a745";
+                } else {
+                    const selectedLabel = document.getElementById(`label-q${index}-o${answerValue}`);
+                    feedbackDiv.innerHTML = `❌ Errado. A resposta correta era: <strong>${item.options[item.answer]}</strong>`;
+                    feedbackDiv.className = "feedback wrong-bg";
+                    feedbackDiv.style.color = "#721c24";
+                    selectedLabel.style.backgroundColor = "#f8d7da";
+                    selectedLabel.style.borderColor = "#dc3545";
+                    correctLabel.style.backgroundColor = "#d4edda";
+                    correctLabel.style.borderColor = "#28a745";
+                }
             } else {
-                feedback.innerHTML = "Errado. Resposta esperada: " + item.a;
-                feedback.className = "feedback wrong";
+                feedbackDiv.innerHTML = "⚠️ Você esqueceu de responder esta!";
+                feedbackDiv.className = "feedback wrong-bg";
+                feedbackDiv.style.color = "#856404";
+                feedbackDiv.style.backgroundColor = "#fff3cd";
+                feedbackDiv.style.borderColor = "#ffeeba";
+                
+                // Destaca a correta mesmo se não respondeu
+                const correctLabel = document.getElementById(`label-q${index}-o${item.answer}`);
+                correctLabel.style.backgroundColor = "#d4edda";
+                correctLabel.style.borderColor = "#28a745";
             }
-            feedback.style.display = "block";
+            feedbackDiv.style.display = "block";
         });
 
         const resultArea = document.getElementById('result-area');
@@ -169,13 +310,16 @@
             resultArea.style.backgroundColor = "#d4edda";
             resultArea.style.color = "#155724";
             resultArea.innerHTML += "<br>Incrível! Você é um mestre da Mesopotâmia!";
+        } else if (score >= 10) {
+            resultArea.style.backgroundColor = "#d1ecf1";
+            resultArea.style.color = "#0c5460";
+            resultArea.innerHTML += "<br>Bom trabalho! Só falta revisar mais alguns pergaminhos.";
         } else {
             resultArea.style.backgroundColor = "#fff3cd";
             resultArea.style.color = "#856404";
-            resultArea.innerHTML += "<br>Bom esforço! Que tal revisar as tábuas de argila?";
+            resultArea.innerHTML += "<br>Não desanime! A História se constrói com muito estudo. Revise a matéria e tente de novo!";
         }
         
-        // Rola a tela para o final para mostrar o resultado
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 </script>
