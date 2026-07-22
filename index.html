@@ -1,327 +1,584 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: O Legado dos Sumérios (Múltipla Escolha)</title>
+    <title>Quiz: Empreendedorismo Digital e Redes Sociais - EJA</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4ece1;
-            color: #3e2723;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-body: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --correct: #16a34a;
+            --correct-bg: #f0fdf4;
+            --wrong: #dc2626;
+            --wrong-bg: #fef2f2;
+            --border: #e2e8f0;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding: 12px;
+            padding-bottom: 40px;
+        }
+
+        /* Container principal estilo App Mobile */
+        .app-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 20px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Placar de Pontuação Fixo */
+        .score-board {
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 8px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
-        .container {
-            max-width: 800px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 8px solid #d4a373;
+
+        .score-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
-        h1 {
-            color: #8b5e3c;
-            text-align: center;
-            border-bottom: 2px dashed #d4a373;
-            padding-bottom: 10px;
+
+        .score-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
         }
-        .intro {
-            font-style: italic;
-            text-align: center;
-            margin-bottom: 25px;
+
+        /* Progresso */
+        .progress-bar-bg {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 6px;
+            overflow: hidden;
         }
-        .question {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #faf7f2;
-            border-left: 5px solid #d4a373;
-            border-radius: 8px;
+
+        .progress-bar-fill {
+            background: var(--primary);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
         }
-        .question p {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-top: 0;
-            margin-bottom: 15px;
+
+        /* Cards das Questões */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 18px 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
-        .options {
+
+        .question-number {
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+        }
+
+        /* Opções de Resposta */
+        .options-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .option-label {
-            background: #fff;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+
+        .option-btn {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            text-align: left;
             cursor: pointer;
-            transition: background 0.2s;
+            width: 100%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            background: #e2e8f0;
+            color: var(--text-dark);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 1px;
         }
-        .option-label:hover {
-            background: #f0e6d2;
+
+        .option-btn:active {
+            transform: scale(0.98);
         }
-        .option-label input {
-            margin-right: 10px;
-            cursor: pointer;
+
+        /* Estilos de Validação (Correto / Incorreto) */
+        .option-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: #064e3b;
+            font-weight: 600;
         }
-        .btn-check {
-            background-color: #8b5e3c;
+
+        .option-btn.correct .option-letter {
+            background-color: var(--correct);
             color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            display: block;
-            margin: 30px auto;
-            transition: background 0.3s;
         }
-        .btn-check:hover {
-            background-color: #5d3e29;
+
+        .option-btn.wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: #7f1d1d;
         }
-        .feedback {
-            margin-top: 15px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 6px;
-            display: none;
+
+        .option-btn.wrong .option-letter {
+            background-color: var(--wrong);
+            color: white;
         }
-        .correct-bg { background-color: #d4edda; border: 1px solid #c3e6cb; }
-        .wrong-bg { background-color: #f8d7da; border: 1px solid #f5c6cb; }
-        
-        #result-area {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 20px;
-            padding: 20px;
+
+        .option-btn.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Explicação / Feedback */
+        .feedback-box {
+            margin-top: 12px;
+            padding: 12px;
             border-radius: 8px;
+            font-size: 0.85rem;
             display: none;
+            line-height: 1.4;
+        }
+
+        .feedback-box.correct-fb {
+            display: block;
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct);
+            color: #14532d;
+        }
+
+        .feedback-box.wrong-fb {
+            display: block;
+            background-color: var(--wrong-bg);
+            border: 1px solid var(--wrong);
+            color: #7f1d1d;
+        }
+
+        /* Botoes de Ação */
+        .actions-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-action {
+            background-color: #334155;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #1e293b;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--border);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Responsividade e Impressão */
+        @media print {
+            .score-board, .actions-section, footer { display: none; }
+            body { background: white; padding: 0; }
+            .question-card { border: none; border-bottom: 1px solid #ccc; border-radius: 0; }
+            .option-btn { border: 1px solid #ddd; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🏺 Desafio Sumério: Múltipla Escolha</h1>
-    <p class="intro">Atenção, turma! Leiam com cuidado as opções. Marquem a resposta correta e cliquem em "Finalizar e Corrigir" no final da página para verem como se saíram.</p>
+<div class="app-container">
+    <header>
+        <h1>Empreendedorismo Digital</h1>
+        <p>15 Questões Práticas sobre Redes Sociais, Celular e Vendas</p>
+        <span class="badge">EJA Noturno • Atividade Interativa</span>
+    </header>
 
-    <div id="quiz">
+    <div class="score-board">
+        <div>
+            <div class="score-title">Progresso & Acertos</div>
+            <div class="progress-bar-bg" style="width: 150px;">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
         </div>
+        <div class="score-value" id="scoreText">0 / 15</div>
+    </div>
 
-    <button class="btn-check" onclick="checkQuiz()">Finalizar e Corrigir</button>
-    <div id="result-area"></div>
+    <main id="quizContainer"></main>
+
+    <div class="actions-section">
+        <button class="btn-action" onclick="revelarTudo()">👁️ Mostrar Todo o Gabarito Comentado</button>
+        <button class="btn-action btn-secondary" onclick="window.print()">🖨️ Imprimir / Salvar em PDF</button>
+        <button class="btn-action btn-secondary" onclick="location.reload()">🔄 Reiniciar Exercício</button>
+    </div>
+
+    <footer>
+        <p>Desenvolvido para turmas de EJA Noturno • Hospedado via GitHub Pages</p>
+    </footer>
 </div>
 
 <script>
-    // Nossas 20 perguntas reformuladas com alternativas!
-    const questions = [
-        { 
-            q: "Em qual região do mundo viviam os sumérios?", 
-            options: ["Egito", "Mesopotâmia", "Grécia", "Roma"], 
-            answer: 1 
-        },
-        { 
-            q: "Quais são os dois rios principais que banhavam a Mesopotâmia?", 
-            options: ["Nilo e Jordão", "Amazonas e São Francisco", "Tigre e Eufrates", "Ganges e Indo"], 
-            answer: 2 
-        },
-        { 
-            q: "Como se chamava a escrita criada pelos sumérios, feita com sinais em forma de cunha?", 
-            options: ["Hieróglifos", "Alfabeto Latino", "Ideogramas", "Escrita Cuneiforme"], 
-            answer: 3 
-        },
-        { 
-            q: "Qual era o nome das grandes torres em formato de pirâmide que serviam como templos?", 
-            options: ["Zigurates", "Obeliscos", "Panteões", "Mastabas"], 
-            answer: 0 
-        },
-        { 
-            q: "Os sumérios eram monoteístas (um deus) ou politeístas (vários deuses)?", 
-            options: ["Monoteístas", "Ateus", "Politeístas", "Animistas"], 
-            answer: 2 
-        },
-        { 
-            q: "Qual invenção suméria revolucionou o transporte e a cerâmica?", 
-            options: ["A Bússola", "A Roda", "A Pólvora", "O Papel"], 
-            answer: 1 
-        },
-        { 
-            q: "Como se chamavam as cidades sumérias que tinham governo e leis próprias?", 
-            options: ["Cidades-Estado", "Feudos", "Capitanias", "Impérios"], 
-            answer: 0 
-        },
-        { 
-            q: "Qual era o material usado pelos sumérios para escrever seus registros?", 
-            options: ["Papiro", "Folhas de palmeira", "Pergaminho (pele de animal)", "Tábuas de argila úmida"], 
-            answer: 3 
-        },
-        { 
-            q: "O 'Epos de Gilgamesh' é considerado uma das obras mais antigas de qual gênero?", 
-            options: ["Literatura (Epopeia)", "Matemática", "Medicina", "Astronomia"], 
-            answer: 0 
-        },
-        { 
-            q: "Os sumérios desenvolveram um sistema matemático baseado em qual número?", 
-            options: ["Base 10", "Base 12", "Base 60", "Base 100"], 
-            answer: 2 
-        },
-        { 
-            q: "Qual era a principal atividade econômica dos sumérios?", 
-            options: ["Comércio Marítimo", "Agricultura", "Mineração", "Caça"], 
-            answer: 1 
-        },
-        { 
-            q: "Como os sumérios levavam água dos rios para as plantações em épocas de seca?", 
-            options: ["Caminhões-pipa", "Canais de irrigação", "Aquedutos de pedra", "Poços artesianos profundos"], 
-            answer: 1 
-        },
-        { 
-            q: "Quem era a figura no topo da pirâmide social suméria, que era chefe militar e religioso?", 
-            options: ["O Patesi", "O Faraó", "O Imperador", "O Presidente"], 
-            answer: 0 
-        },
-        { 
-            q: "Verdadeiro ou Falso: Os sumérios são creditados pela invenção de uma bebida muito famosa hoje, a cerveja.", 
-            options: ["Falso", "Verdadeiro"], 
-            answer: 1 
-        },
-        { 
-            q: "Qual destas cidades é considerada uma das mais importantes e antigas da Suméria?", 
-            options: ["Atenas", "Esparta", "Uruk", "Cartago"], 
-            answer: 2 
-        },
-        { 
-            q: "Os sumérios dividiram o círculo em quantos graus?", 
-            options: ["100 graus", "180 graus", "360 graus", "400 graus"], 
-            answer: 2 
-        },
-        { 
-            q: "Qual era a função principal dos escribas na sociedade suméria?", 
-            options: ["Construir casas", "Lutar nas guerras", "Registrar impostos, leis e estoques", "Plantar trigo"], 
-            answer: 2 
-        },
-        { 
-            q: "Para que serviam os selos cilíndricos usados por esse povo?", 
-            options: ["Assinar documentos e marcar propriedades", "Moer grãos", "Decorar roupas", "Medir o tempo"], 
-            answer: 0 
-        },
-        { 
-            q: "Os sumérios acreditavam que os deuses eram:", 
-            options: ["Sempre bondosos", "Imprevisíveis e vingativos", "Indiferentes aos humanos", "Dóceis e calmos"], 
-            answer: 1 
-        },
-        { 
-            q: "Qual metal os sumérios aprenderam a manipular para criar ferramentas mais resistentes?", 
-            options: ["Ferro", "Aço", "Ouro", "Bronze (mistura de cobre com estanho)"], 
-            answer: 3 
-        }
-    ];
+const questions = [
+    {
+        q: "Qual é a principal vantagem de usar o WhatsApp Business em relação ao WhatsApp comum para quem vende produtos ou serviços?",
+        options: [
+            "Permite jogar online com os clientes",
+            "Permite criar catálogo de produtos, respostas automáticas e colocar horário de funcionamento",
+            "Faz com que o celular nunca fique sem memória",
+            "Impede que os clientes façam reclamações"
+        ],
+        answer: 1,
+        explain: "O WhatsApp Business oferece ferramentas profissionais gratuitas como catálogo de fotos com preços, mensagens automáticas de saudação/ausência e etiquetas para organizar os pedidos."
+    },
+    {
+        q: "Dona Maria faz salgados por encomenda e quer divulgar seu trabalho no Instagram. Qual é a melhor forma de tirar fotos dos salgados com o celular?",
+        options: [
+            "Tirar foto em um local escuro para esconder imperfeições",
+            "Usar boa iluminação natural, colocar os salgados em um prato limpo e mostrar detalhes bem focados",
+            "Tirar foto de longe para que o produto pareça maior",
+            "Baixar fotos da internet de salgados de outras pessoas e postar como se fossem dela"
+        ],
+        answer: 1,
+        explain: "Fotos bem iluminadas e reais geram confiança no cliente. Baixar fotos da internet engana o consumidor e prejudica a reputação do negócio."
+    },
+    {
+        q: "Ao receber pagamentos por Pix de clientes do seu pequeno negócio, qual cuidado de segurança você deve ter antes de entregar a mercadoria?",
+        options: [
+            "Apenas olhar rápido a imagem do comprovante que o cliente enviou pelo WhatsApp",
+            "Confirmar se o dinheiro realmente caiu na sua conta entrando no aplicativo do seu banco",
+            "Confiar na palavra do cliente sem precisar checar nada",
+            "Pedir a senha do cartão do cliente para confirmar a transferência"
+        ],
+        answer: 1,
+        explain: "Existem comprovantes falsos ou Pix agendados que podem ser cancelados. O correto é sempre verificar o saldo e o extrato no próprio aplicativo do seu banco."
+    },
+    {
+        q: "Você recebeu uma mensagem no celular dizendo: 'Sua conta do WhatsApp será bloqueada! Envie o código de 6 dígitos que recebeu por SMS para liberar'. O que você deve fazer?",
+        options: [
+            "Enviar o código imediatamente para não perder a conta",
+            "Não enviar o código para ninguém, pois trata-se de uma tentativa de clonagem de WhatsApp",
+            "Passar o código e também a sua senha do banco",
+            "Encaminhar a mensagem para todos os seus contatos"
+        ],
+        answer: 1,
+        explain: "Códigos recebidos por SMS são senhas de acesso. Nenhuma empresa séria pede esse código. Compartilhá-lo permite que golpistas clonem seu WhatsApp."
+    },
+    {
+        q: "Um cliente fez um comentário público nas redes sociais do seu negócio reclamando que o pedido dele atrasou. Qual é a atitude profissional mais adequada?",
+        options: [
+            "Apagar o comentário e bloquear o cliente imediatamente",
+            "Responder com educação, pedir desculpas pelo imprevisto e chamar o cliente no privado para resolver o problema",
+            "Discutir com o cliente nos comentários e dizer que a culpa é dele",
+            "Fingir que não viu e nunca mais responder ao cliente"
+        ],
+        answer: 1,
+        explain: "Responder com empatia e agilidade demonstra responsabilidade e respeito aos consumidores, transformando uma crítica em uma oportunidade de fidelização."
+    },
+    {
+        q: "Para alcançar trabalhadores e estudantes que passam o dia ocupados, quais costumam ser os melhores horários para publicar novidades do seu negócio nas redes sociais?",
+        options: [
+            "De madrugada, entre 2h e 4h da manhã",
+            "No início da manhã, no horário do almoço e no início da noite (fora do horário comercial tradicional)",
+            "Apenas durante a madrugada de domingo para segunda",
+            "Em qualquer horário, pois o horário não influencia em nada"
+        ],
+        answer: 1,
+        explain: "Nos momentos de descanso (almoço, trajeto de volta para casa e início da noite), as pessoas costumam checar mais o celular."
+    },
+    {
+        q: "Nas redes sociais, o que é uma Hashtag (símbolo # seguido de uma palavra, como #ConfeitariaArtesanal) e para que ela serve?",
+        options: [
+            "Serve para travar o celular de quem clica nela",
+            "É um código secreto para conseguir empréstimo no banco",
+            "É uma palavra-chave que ajuda novos clientes a encontrarem suas publicações ao pesquisarem por esse assunto",
+            "Serve apenas para enfeitar a legenda da foto"
+        ],
+        answer: 2,
+        explain: "As hashtags funcionam como organizadores de conteúdo. Quando alguém pesquisa por #MarmitaCaseira, o Instagram mostra todas as publicações que usaram essa tag."
+    },
+    {
+        q: "Seu João vende espetinhos à noite e quer organizar os pedidos que chegam pelo celular sem se perder. Qual recurso do WhatsApp Business pode ajudá-lo?",
+        options: [
+            "Etiquetas coloridas (ex: 'Pedido Pago', 'A Entregar', 'Aguardando Pagamento')",
+            "Mudar a foto de perfil a cada 10 minutos",
+            "Apagar todas as conversas assim que receber o pedido",
+            "Bloquear os clientes que fazem pedidos muito grandes"
+        ],
+        answer: 0,
+        explain: "As Etiquetas do WhatsApp Business ajudam a organizar a rotina do empreendedor, separando os clientes por status de atendimento e pagamento."
+    },
+    {
+        q: "O que não pode faltar na 'Bio' (a descrição do perfil) do Instagram ou Facebook da sua empresa?",
+        options: [
+            "Apenas poemas e frases motivacionais genéricas",
+            "O que você vende, a cidade/bairro de atendimento e um link ou número direto de contato/WhatsApp",
+            "A lista completa de todos os seus familiares",
+            "Histórico completo da sua vida desde a infância"
+        ],
+        answer: 1,
+        explain: "A Bio é o cartão de visitas digital. Ela precisa ser direta e informar em poucos segundos o que você vende, onde você está e como comprar."
+    },
+    {
+        q: "Qual é a combinação de ferramentas digitais mais eficiente para um pequeno negócio de bairro fechar vendas rapidamente?",
+        options: [
+            "Instagram ou Facebook para atrair/divulgar e WhatsApp para conversar e fechar a venda com o cliente",
+            "Apenas enviar e-mails formais para os vizinhos do bairro",
+            "Criar um site complexo e caro sem ter redes sociais",
+            "Anunciar em jornais impressos de outros estados"
+        ],
+        answer: 0,
+        explain: "As redes sociais servem como 'vitrine' para atrair a atenção do cliente, enquanto o WhatsApp funciona como o 'balcão de atendimento' para tirar dúvidas e fechar a venda."
+    },
+    {
+        q: "Por que é importante manter um padrão visual (cores parecidas, mesmo estilo de letra e logotipo) nas publicações do seu negócio?",
+        options: [
+            "Para deixar as postagens mais confusas para o cliente",
+            "Porque transmite profissionalismo e faz os clientes reconhecerem sua marca rapidamente",
+            "É uma obrigação por lei que gera multa se não for feita",
+            "Não tem nenhuma importância, pode-se usar qualquer estilo sem critério"
+        ],
+        answer: 1,
+        explain: "A identidade visual cria reconhecimento de marca. Quando o cliente vê cores e estilos organizados, ele percebe maior capricho e credibilidade no seu trabalho."
+    },
+    {
+        q: "Muitos pequenos empreendedores têm vergonha de gravar vídeos para a internet. Qual é um bom primeiro passo para começar a gravar vídeos de produtos (Reels ou Stories)?",
+        options: [
+            "Contratar uma equipe de cinema profissional muito cara",
+            "Gravar vídeos focando nas mãos fazendo o produto ou no produto pronto, enquanto explica o processo com voz clara",
+            "Falar muito rápido e sem mostrar o produto",
+            "Desistir de vender na internet porque não quer aparecer"
+        ],
+        answer: 1,
+        explain: "Não é necessário aparecer se você não se sentir confortável no início. Mostrar o processo de fabricação do produto (bastidores) gera alto interesse e engajamento."
+    },
+    {
+        q: "Para que serve a 'Mensagem de Saudação' automática no WhatsApp Business?",
+        options: [
+            "Para enviar mensagens de bom dia para pessoas que você não conhece de madrugada",
+            "Para responder o cliente instantaneamente quando ele envia a primeira mensagem, dando boas-vindas e apresentando o negócio",
+            "Para cobrar dívidas antigas automaticamente",
+            "Para bloquear clientes indesejados sem precisar ler a mensagem"
+        ],
+        answer: 1,
+        explain: "A mensagem de saudação garante um atendimento rápido imediato, informando ao cliente que a mensagem foi recebida e orientando os próximos passos."
+    },
+    {
+        q: "Como o empreendedor pode usar os elogios e avaliações dos clientes satisfeitos para aumentar suas vendas nas redes sociais?",
+        options: [
+            "Guardar os elogios em um caderno secreto e não mostrar a ninguém",
+            "Pedir autorização ao cliente e postar os prints dos elogios nos Stories/Destaques como 'Prova Social'",
+            "Cobrar um valor extra do cliente que fizer um elogio",
+            "Excluir as mensagens de elogio para economizar espaço no celular"
+        ],
+        answer: 1,
+        explain: "Depoimentos de clientes satisfeitos funcionam como 'Prova Social'. Novas pessoas se sentem muito mais seguras para comprar quando veem que outros já compraram e aprovaram."
+    },
+    {
+        q: "O que é um 'Link do WhatsApp' e qual sua utilidade na divulgação do seu negócio?",
+        options: [
+            "É um vírus que trava as redes sociais",
+            "É um endereço da web que, ao ser clicado pelo cliente na rede social, abre diretamente a conversa com você no WhatsApp sem precisar salvar o número",
+            "É um número de telefone fixo que só funciona em computadores",
+            "É uma senha usada para entrar no aplicativo do banco"
+        ],
+        answer: 1,
+        explain: "O link direto do WhatsApp facilita a vida do cliente. Quanto menos passos o cliente precisar dar para falar com você, maior será a chance de fechar a venda."
+    }
+];
 
-    const quizContainer = document.getElementById('quiz');
+let answeredCount = 0;
+let correctCount = 0;
 
-    // Gerando o HTML das perguntas
+function renderQuiz() {
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = '';
+
     questions.forEach((item, index) => {
-        const qDiv = document.createElement('div');
-        qDiv.className = 'question';
-        
-        let optionsHtml = '';
-        item.options.forEach((opt, optIndex) => {
-            optionsHtml += `
-                <label class="option-label" id="label-q${index}-o${optIndex}">
-                    <input type="radio" name="q${index}" value="${optIndex}">
-                    ${opt}
-                </label>
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        const letters = ['A', 'B', 'C', 'D'];
+
+        item.options.forEach((opt, optIdx) => {
+            optionsHTML += `
+                <button class="option-btn" onclick="checkAnswer(${index}, ${optIdx})">
+                    <span class="option-letter">${letters[optIdx]}</span>
+                    <span>${opt}</span>
+                </button>
             `;
         });
 
-        qDiv.innerHTML = `
-            <p>${index + 1}. ${item.q}</p>
-            <div class="options">
-                ${optionsHtml}
+        card.innerHTML = `
+            <span class="question-number">Questão ${index + 1} de ${questions.length}</span>
+            <div class="question-text">${item.q}</div>
+            <div class="options-list" id="opts-${index}">
+                ${optionsHTML}
             </div>
-            <div id="f${index}" class="feedback"></div>
+            <div class="feedback-box" id="fb-${index}"></div>
         `;
-        quizContainer.appendChild(qDiv);
+
+        container.appendChild(card);
+    });
+}
+
+function checkAnswer(qIdx, selectedOpt) {
+    const q = questions[qIdx];
+    const optsContainer = document.getElementById(`opts-${qIdx}`);
+    const buttons = optsContainer.querySelectorAll('.option-btn');
+    const feedbackBox = document.getElementById(`fb-${qIdx}`);
+
+    buttons.forEach((btn, idx) => {
+        btn.classList.add('disabled');
+        if (idx === q.answer) {
+            btn.classList.add('correct');
+        } else if (idx === selectedOpt && selectedOpt !== q.answer) {
+            btn.classList.add('wrong');
+        }
     });
 
-    // Função de correção
-    function checkQuiz() {
-        let score = 0;
+    if (!optsContainer.dataset.answered) {
+        optsContainer.dataset.answered = "true";
+        answeredCount++;
 
-        questions.forEach((item, index) => {
-            const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
-            const feedbackDiv = document.getElementById(`f${index}`);
-            
-            // Pega todos os labels dessa pergunta para limpar a formatação
-            const labels = document.querySelectorAll(`input[name="q${index}"]`);
-            labels.forEach(radio => {
-                radio.parentElement.style.backgroundColor = "#fff";
-                radio.parentElement.style.borderColor = "#ddd";
-            });
-
-            if (selectedOption) {
-                const answerValue = parseInt(selectedOption.value);
-                const correctLabel = document.getElementById(`label-q${index}-o${item.answer}`);
-                
-                if (answerValue === item.answer) {
-                    score++;
-                    feedbackDiv.innerHTML = "✅ Resposta Certa!";
-                    feedbackDiv.className = "feedback correct-bg";
-                    feedbackDiv.style.color = "#155724";
-                    correctLabel.style.backgroundColor = "#d4edda";
-                    correctLabel.style.borderColor = "#28a745";
-                } else {
-                    const selectedLabel = document.getElementById(`label-q${index}-o${answerValue}`);
-                    feedbackDiv.innerHTML = `❌ Errado. A resposta correta era: <strong>${item.options[item.answer]}</strong>`;
-                    feedbackDiv.className = "feedback wrong-bg";
-                    feedbackDiv.style.color = "#721c24";
-                    selectedLabel.style.backgroundColor = "#f8d7da";
-                    selectedLabel.style.borderColor = "#dc3545";
-                    correctLabel.style.backgroundColor = "#d4edda";
-                    correctLabel.style.borderColor = "#28a745";
-                }
-            } else {
-                feedbackDiv.innerHTML = "⚠️ Você esqueceu de responder esta!";
-                feedbackDiv.className = "feedback wrong-bg";
-                feedbackDiv.style.color = "#856404";
-                feedbackDiv.style.backgroundColor = "#fff3cd";
-                feedbackDiv.style.borderColor = "#ffeeba";
-                
-                // Destaca a correta mesmo se não respondeu
-                const correctLabel = document.getElementById(`label-q${index}-o${item.answer}`);
-                correctLabel.style.backgroundColor = "#d4edda";
-                correctLabel.style.borderColor = "#28a745";
-            }
-            feedbackDiv.style.display = "block";
-        });
-
-        const resultArea = document.getElementById('result-area');
-        resultArea.style.display = "block";
-        resultArea.innerHTML = `Sua pontuação final: ${score} de ${questions.length}`;
-        
-        if (score >= 15) {
-            resultArea.style.backgroundColor = "#d4edda";
-            resultArea.style.color = "#155724";
-            resultArea.innerHTML += "<br>Incrível! Você é um mestre da Mesopotâmia!";
-        } else if (score >= 10) {
-            resultArea.style.backgroundColor = "#d1ecf1";
-            resultArea.style.color = "#0c5460";
-            resultArea.innerHTML += "<br>Bom trabalho! Só falta revisar mais alguns pergaminhos.";
+        if (selectedOpt === q.answer) {
+            correctCount++;
+            feedbackBox.className = "feedback-box correct-fb";
+            feedbackBox.innerHTML = `<strong>Resposta Correta! ✨</strong><br>${q.explain}`;
         } else {
-            resultArea.style.backgroundColor = "#fff3cd";
-            resultArea.style.color = "#856404";
-            resultArea.innerHTML += "<br>Não desanime! A História se constrói com muito estudo. Revise a matéria e tente de novo!";
+            feedbackBox.className = "feedback-box wrong-fb";
+            feedbackBox.innerHTML = `<strong>Resposta Incorreta.</strong><br>A alternativa correta é a letra <strong>${['A','B','C','D'][q.answer]}</strong>.<br>${q.explain}`;
         }
-        
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        updateScore();
     }
+}
+
+function updateScore() {
+    document.getElementById('scoreText').innerText = `${correctCount} / ${questions.length}`;
+    const percentage = (answeredCount / questions.length) * 100;
+    document.getElementById('progressFill').style.width = `${percentage}%`;
+}
+
+function revelarTudo() {
+    questions.forEach((q, qIdx) => {
+        const optsContainer = document.getElementById(`opts-${qIdx}`);
+        if (!optsContainer.dataset.answered) {
+            checkAnswer(qIdx, q.answer);
+        }
+    });
+}
+
+// Inicializa o quiz na tela
+renderQuiz();
 </script>
 
 </body>
