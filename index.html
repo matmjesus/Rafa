@@ -3,32 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0d0614">
+    
+    <!-- Meta & Social Sharing Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Para minha filha Rafaela ❤️✨">
+    <meta property="og:description" content="Boa noite, Rafaela! Te amo mil milhões! Uma surpresa super mágica.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0d0618/FFD700.png?text=Boa+Noite+Rafaela+%E2%9D%A4%EF%B8%8F">
+    <meta name="theme-color" content="#0d0618">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Boa Noite, Rafaela! ✨ Te amo mil milhões</title>
 
-    <!-- Open Graph Meta Tags (GitHub Pages WhatsApp & Social Preview) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Boa Noite, Rafaela! ❤️✨">
-    <meta property="og:description" content="Uma mensagem mágica e especial de boa noite cheia de amor para a Rafaela!">
-    <meta property="og:image" content="https://placehold.co/1200x630/1e1035/FFD700.png?text=Boa+Noite+Rafaela+%E2%9D%A4%EF%B8%8F">
-    <meta property="og:site_name" content="Mensagem Especial">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Boa Noite, Rafaela! ❤️✨">
-    <meta name="twitter:description" content="Te amo mil milhões! Toque para ver a surpresa.">
-
-    <!-- Favicon (SVG Embedded) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
-
-    <!-- Tailwind CSS -->
+    <title>Para minha filha Rafaela ❤️✨</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:ital,wght@0,300;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             -webkit-tap-highlight-color: transparent;
@@ -41,263 +35,527 @@
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background: radial-gradient(ellipse at bottom, #1e1035 0%, #0d0614 65%, #05020a 100%);
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0d0618;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .font-cursive {
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Glassmorphism Card Optimized for Mobile GPU */
+        /* Hardware Accelerated Ultra-Fast CSS Effects */
         .glass-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 105, 180, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                        0 0 20px rgba(236, 72, 153, 0.2);
+            will-change: transform, opacity;
         }
 
-        /* Neon Glow Text Styles */
-        .glow-title {
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.5);
+        /* Neon Text Glows without expensive filters */
+        .text-glow-gold {
+            text-shadow: 0 0 10px rgba(253, 224, 71, 0.8),
+                         0 0 25px rgba(234, 179, 8, 0.5);
         }
 
-        .glow-love {
-            text-shadow: 0 0 15px rgba(255, 105, 180, 0.9), 0 0 35px rgba(255, 20, 147, 0.6);
+        .text-glow-pink {
+            text-shadow: 0 0 12px rgba(244, 114, 182, 0.9),
+                         0 0 30px rgba(236, 72, 153, 0.6);
         }
 
         .moon-glow {
-            filter: drop-shadow(0 0 30px rgba(254, 240, 138, 0.8));
+            filter: drop-shadow(0 0 15px rgba(254, 240, 138, 0.6));
         }
 
-        /* Keyframe Animations */
+        /* Animations */
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
 
         .animate-float {
-            animation: float 4.5s ease-in-out infinite;
+            animation: float 3.5s ease-in-out infinite;
         }
 
-        @keyframes pulse-btn {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
-            50% { transform: scale(1.04); box-shadow: 0 0 30px rgba(236, 72, 153, 0.8); }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
         }
 
-        .animate-pulse-btn {
-            animation: pulse-btn 2s ease-in-out infinite;
+        .animate-pulse-glow {
+            animation: pulse-glow 1.5s ease-in-out infinite;
         }
 
-        @keyframes starTwinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+        /* Screen Shake Keyframe (Mobile Hardware Accelerated) */
+        @keyframes fastShake {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-4px, 3px); }
+            40% { transform: translate(4px, -3px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 1px); }
+            100% { transform: translate(0, 0); }
         }
 
-        .bg-star {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: starTwinkle var(--duration, 3s) ease-in-out infinite var(--delay, 0s);
+        .shake-active {
+            animation: fastShake 0.25s ease-out;
         }
     </style>
 </head>
-<body class="relative h-full w-full flex items-center justify-center p-4 overflow-hidden text-white select-none">
+<body class="relative h-full w-full flex items-center justify-center p-4 text-white overflow-hidden">
 
-    <div id="starsContainer" class="absolute inset-0 pointer-events-none z-0"></div>
+    <!-- Canvas Background for Starfield & High Performance Fireworks -->
+    <canvas id="fireworksCanvas" class="absolute inset-0 w-full h-full z-0 cursor-pointer"></canvas>
 
-    <!-- High-DPI Responsive Canvas for Explosions & Shooting Stars -->
-    <canvas id="explosionCanvas" class="absolute inset-0 w-full h-full z-10 pointer-events-auto"></canvas>
-
-    <main class="relative z-20 max-w-md w-full text-center pointer-events-none px-2">
+    <div id="appWrapper" class="relative w-full h-full flex flex-col items-center justify-between z-10 pointer-events-none">
         
-        <!-- Animated Crescent Moon -->
-        <div class="mb-4 flex justify-center animate-float">
-            <svg class="w-24 h-24 sm:w-32 sm:h-32 moon-glow text-yellow-200" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.3 2a10 10 0 0 0 9.7 11.6 10 10 0 1 1-11.3-11.3 8 8 0 0 1 1.6-.3z" />
-                <circle cx="18.5" cy="5.5" r="1.5" class="fill-yellow-100 animate-ping" />
-                <circle cx="20.5" cy="9.5" r="1" class="fill-pink-300" />
-            </svg>
-        </div>
+        <!-- Header Moon Icon -->
+        <header class="pt-6 sm:pt-8 flex flex-col items-center pointer-events-none animate-float">
+            <div class="relative">
+                <svg class="w-20 h-20 sm:w-24 sm:h-24 moon-glow text-yellow-200" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.3 2a10 10 0 0 0 9.7 11.6 10 10 0 1 1-11.3-11.3 8 8 0 0 1 1.6-.3z" />
+                    <circle cx="18.5" cy="5.5" r="1.2" class="fill-yellow-100 animate-ping" />
+                </svg>
+            </div>
+            <p class="mt-2 text-[11px] font-semibold text-purple-200/80 tracking-widest uppercase">
+                Para Minha Filha Rafaela
+            </p>
+        </header>
 
-        <!-- Glassmorphism Card -->
-        <div id="mainCard" class="glass-card rounded-3xl p-6 sm:p-8 transition-all duration-700 pointer-events-auto transform scale-100">
+        <!-- Main Card Section -->
+        <main class="w-full max-w-md px-3 my-auto flex flex-col items-center justify-center pointer-events-none">
             
-            <!-- INITIAL PROMPT SCREEN -->
-            <div id="promptState" class="space-y-5 py-2">
-                <div class="inline-block px-3 py-1 rounded-full bg-pink-500/20 border border-pink-300/30 text-xs text-pink-200 font-semibold tracking-wide uppercase">
-                    ✨ Uma surpresa especial
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-yellow-200 tracking-tight">
-                    Para minha querida filha
-                </h2>
-                <p class="text-sm sm:text-base text-purple-200/90 font-light leading-relaxed">
-                    Toque no botão abaixo para abrir seu presente mágico de boa noite...
-                </p>
-                <button id="startBtn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold text-lg shadow-lg transition-transform active:scale-95 animate-pulse-btn flex items-center justify-center gap-2">
-                    <span>💖</span>
-                    <span>Toque aqui, Rafaela!</span>
+            <!-- Tap Hint Box -->
+            <div id="initialHint" class="pointer-events-auto cursor-pointer glass-card px-6 py-5 rounded-3xl text-center shadow-2xl animate-pulse-glow transition-all duration-300">
+                <div class="flex items-center justify-center gap-2 text-yellow-300 font-bold text-lg sm:text-xl text-glow-gold">
                     <span>✨</span>
-                </button>
+                    <span>Toque na tela, Rafaela! ✨</span>
+                </div>
+                <p class="text-xs text-purple-200/90 mt-1.5 font-light">
+                    Toque em qualquer lugar para explodir magia!
+                </p>
             </div>
 
-            <!-- REVEALED MESSAGE CONTENT -->
-            <div id="revealedState" class="hidden space-y-5 opacity-0 transition-all duration-700 transform translate-y-4">
-                <div class="space-y-1">
-                    <p class="text-xs font-semibold uppercase tracking-widest text-pink-300">Minha princesa</p>
-                    <h1 class="text-3xl sm:text-5xl font-black text-yellow-300 glow-title leading-tight">
-                        Boa Noite, Rafaela! 🌙✨
-                    </h1>
+            <!-- Revealed Message Card -->
+            <div id="messageCard" class="hidden glass-card rounded-3xl p-6 sm:p-8 text-center space-y-4 transition-all duration-500 transform scale-90 opacity-0 pointer-events-auto">
+                <div class="inline-block px-3 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-[10px] font-semibold text-pink-300 uppercase tracking-widest">
+                    Mensagem de Amor
                 </div>
 
-                <div class="py-2">
-                    <p class="text-4xl sm:text-6xl font-cursive text-pink-400 glow-love transform -rotate-1">
+                <div class="space-y-1">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-yellow-300 text-glow-gold tracking-tight leading-tight">
+                        Boa noite, Rafaela! 🌙✨
+                    </h1>
+                    <p class="text-4xl sm:text-5xl font-cursive text-pink-300 text-glow-pink transform -rotate-2 py-1">
                         Te amo mil milhões! ❤️
                     </p>
                 </div>
 
-                <p class="text-xs sm:text-sm text-purple-100 font-light leading-relaxed max-w-xs mx-auto">
-                    Que as estrelas embalem seu sono e seu coração fique sempre cheinho de amor e felicidade!
+                <p class="text-xs sm:text-sm text-purple-100/90 font-light leading-relaxed">
+                    Que as estrelas iluminem seus sonhos e seu coração durma quentinho e cheio de felicidade!
                 </p>
 
-                <!-- ACTION BUTTONS -->
-                <div class="pt-3 border-t border-white/15 flex flex-col sm:flex-row gap-2">
-                    <button id="burstBtn" class="flex-1 py-3 px-4 rounded-xl bg-pink-600/80 hover:bg-pink-500 active:scale-95 text-white font-bold text-xs sm:text-sm transition-all border border-pink-400/30 flex items-center justify-center gap-1.5 shadow-md">
-                        <span>🎆</span>
-                        <span>Mais Explosões!</span>
+                <!-- Buttons Container -->
+                <div class="pt-3 border-t border-white/15 space-y-2.5">
+                    <button id="superExplosionBtn" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-pink-500/40 hover:shadow-pink-500/60 transition-all duration-200 transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>🚀</span>
+                        <span>Super Explosão Mágica! ✨</span>
                     </button>
-                    
-                    <button id="shareBtn" class="flex-1 py-3 px-4 rounded-xl bg-green-600/80 hover:bg-green-500 active:scale-95 text-white font-bold text-xs sm:text-sm transition-all border border-green-400/30 flex items-center justify-center gap-1.5 shadow-md">
-                        <span>📲</span>
-                        <span>Enviar no WhatsApp</span>
+
+                    <button id="shareBtn" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-purple-200 flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                        </svg>
+                        <span id="shareText">Compartilhar Amor</span>
                     </button>
                 </div>
-
-                <p class="text-[10px] text-yellow-200/80 font-medium">
-                    ✨ Dica: Toque em qualquer lugar da tela para mais estrelas!
-                </p>
             </div>
 
-        </div>
+        </main>
 
-        <p class="mt-4 text-xs text-purple-300/60 font-light">
-            Feito com todo o amor do mundo ❤️
-        </p>
+        <!-- Footer -->
+        <footer class="pb-6 text-center pointer-events-none">
+            <p class="text-[10px] text-purple-300/60 font-light tracking-wide">
+                Feito com amor para a minha filha Rafaela ❤️
+            </p>
+        </footer>
 
-    </main>
+    </div>
 
     <script>
-        const canvas = document.getElementById('explosionCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width = 0;
-        let height = 0;
-        let dpr = Math.min(window.devicePixelRatio || 1, 3);
+        // DOM Elements
+        const appWrapper = document.getElementById('appWrapper');
+        const initialHint = document.getElementById('initialHint');
+        const messageCard = document.getElementById('messageCard');
+        const superExplosionBtn = document.getElementById('superExplosionBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const shareText = document.getElementById('shareText');
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
 
-        function resizeCanvas() {
-            dpr = Math.min(window.devicePixelRatio || 1, 3);
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
+        let isCardRevealed = false;
+        let particles = [];
+        let shockwaves = [];
+        let backgroundStars = [];
+        let audioCtx = null;
+        let lastTime = performance.now();
+
+        // STRICT MOBILE PERFORMANCE CAP: Limit DPR to max 2 to prevent lag on 3x/4x mobile GPUs
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        // Offscreen Canvas Sprites (Eliminates costly draw path & shadow calculations in animation loop)
+        function createOffscreenSprite(width, height, drawFn) {
+            const offscreen = document.createElement('canvas');
+            offscreen.width = width * dpr;
+            offscreen.height = height * dpr;
+            const oCtx = offscreen.getContext('2d');
+            oCtx.scale(dpr, dpr);
+            drawFn(oCtx, width, height);
+            return offscreen;
+        }
+
+        // 1. Star Sprite
+        const starSprite = createOffscreenSprite(24, 24, (oCtx, w, h) => {
+            const cx = w / 2, cy = h / 2, outer = 10, inner = 4;
+            oCtx.fillStyle = '#FFE066';
+            oCtx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                oCtx.lineTo(cx + Math.cos((18 + i * 72) * Math.PI / 180) * outer,
+                             cy - Math.sin((18 + i * 72) * Math.PI / 180) * outer);
+                oCtx.lineTo(cx + Math.cos((54 + i * 72) * Math.PI / 180) * inner,
+                             cy - Math.sin((54 + i * 72) * Math.PI / 180) * inner);
+            }
+            oCtx.closePath();
+            oCtx.fill();
+        });
+
+        // 2. Heart Sprite
+        const heartSprite = createOffscreenSprite(24, 24, (oCtx, w, h) => {
+            oCtx.fillStyle = '#FF4D8D';
+            oCtx.beginPath();
+            oCtx.moveTo(12, 18);
+            oCtx.bezierCurveTo(12, 18, 4, 12, 4, 7);
+            oCtx.bezierCurveTo(4, 3, 8, 3, 12, 7);
+            oCtx.bezierCurveTo(16, 3, 20, 3, 20, 7);
+            oCtx.bezierCurveTo(20, 12, 12, 18, 12, 18);
+            oCtx.fill();
+        });
+
+        // 3. Spark Radial Glow Sprite
+        const sparkSprite = createOffscreenSprite(20, 20, (oCtx, w, h) => {
+            const grad = oCtx.createRadialGradient(10, 10, 0, 10, 10, 10);
+            grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            grad.addColorStop(0.4, 'rgba(255, 215, 0, 0.8)');
+            grad.addColorStop(1, 'rgba(255, 105, 180, 0)');
+            oCtx.fillStyle = grad;
+            oCtx.beginPath();
+            oCtx.arc(10, 10, 10, 0, Math.PI * 2);
+            oCtx.fill();
+        });
+
+        function setupCanvas() {
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
+
+            // Generate background twinkling starfield
+            backgroundStars = [];
+            const starCount = Math.floor((window.innerWidth * window.innerHeight) / 4500);
+            for (let i = 0; i < starCount; i++) {
+                backgroundStars.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    radius: Math.random() * 1.2 + 0.4,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.015 + 0.005
+                });
+            }
         }
 
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 200));
+        window.addEventListener('resize', setupCanvas);
+        setupCanvas();
 
-        // Generate background stars
-        const starsContainer = document.getElementById('starsContainer');
-        const starCount = 80;
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.className = 'bg-star';
-            const size = Math.random() * 2.5 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.setProperty('--duration', `${2 + Math.random() * 4}s`);
-            star.style.setProperty('--delay', `${Math.random() * 3}s`);
-            starsContainer.appendChild(star);
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) audioCtx = new AudioCtx();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
+
+        function playExplosionAudio() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+
+                // 1. Sub-Bass Synth Boom
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(160, now);
+                osc.frequency.exponentialRampToValueAtTime(30, now + 0.25);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.3);
+
+                // 2. Magical Crystal Chime Arpeggio
+                const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+                notes.forEach((freq, idx) => {
+                    const chimeOsc = audioCtx.createOscillator();
+                    const chimeGain = audioCtx.createGain();
+                    chimeOsc.type = 'triangle';
+                    chimeOsc.frequency.setValueAtTime(freq, now + idx * 0.03);
+                    chimeGain.gain.setValueAtTime(0.001, now + idx * 0.03);
+                    chimeGain.gain.exponentialRampToValueAtTime(0.12, now + idx * 0.03 + 0.01);
+                    chimeGain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.03 + 0.4);
+                    chimeOsc.connect(chimeGain);
+                    chimeGain.connect(audioCtx.destination);
+                    chimeOsc.start(now + idx * 0.03);
+                    chimeOsc.stop(now + idx * 0.03 + 0.45);
+                });
+
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
+        }
+
+        function triggerHaptics() {
+            if ('vibrate' in navigator) {
+                try {
+                    navigator.vibrate([80, 30, 120]);
+                } catch (e) {}
+            }
+            appWrapper.classList.remove('shake-active');
+            void appWrapper.offsetWidth; // Force reflow
+            appWrapper.classList.add('shake-active');
+        }
+
+        const COLORS = ['#FFD700', '#FF4D8D', '#A855F7', '#38BDF8', '#00FFCC'];
 
         class Particle {
-            constructor(x, y, isBigBurst = false) {
+            constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                
                 const angle = Math.random() * Math.PI * 2;
-                const speed = isBigBurst ? (Math.random() * 12 + 4) : (Math.random() * 8 + 2.5);
+                const speed = Math.random() * 9 + 3;
                 
                 this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                
-                this.friction = 0.94;
-                this.gravity = 0.12;
-                
-                this.size = Math.random() * 10 + 5;
+                this.vy = Math.sin(angle) * speed - 1.2;
+                this.gravity = 0.14;
+                this.friction = 0.96;
                 this.alpha = 1;
-                this.decay = Math.random() * 0.018 + 0.009;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.scale = Math.random() * 0.5 + 0.6;
                 
-                this.rotation = Math.random() * Math.PI * 2;
-                this.vRot = (Math.random() - 0.5) * 0.2;
-
-                const types = ['heart', 'heart', 'star', 'sparkle', 'circle'];
-                this.type = types[Math.floor(Math.random() * types.length)];
-
-                const colors = [
-                    '#FF1493', // Deep Pink
-                    '#FF69B4', // Hot Pink
-                    '#FFD700', // Bright Gold
-                    '#A855F7', // Purple
-                    '#C084FC', // Lilac
-                    '#38BDF8', // Sky Glow
-                    '#FFFFFF'  // Pure White
-                ];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+                const r = Math.random();
+                if (r < 0.35) {
+                    this.sprite = starSprite;
+                    this.size = 24;
+                } else if (r < 0.70) {
+                    this.sprite = heartSprite;
+                    this.size = 24;
+                } else {
+                    this.sprite = sparkSprite;
+                    this.size = 20;
+                }
             }
 
             update() {
                 this.vx *= this.friction;
                 this.vy *= this.friction;
                 this.vy += this.gravity;
-                
                 this.x += this.vx;
                 this.y += this.vy;
-                
-                this.rotation += this.vRot;
                 this.alpha -= this.decay;
             }
 
             draw(ctx) {
                 if (this.alpha <= 0) return;
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                const w = this.size * this.scale;
+                const h = this.size * this.scale;
+                ctx.drawImage(this.sprite, this.x - w / 2, this.y - h / 2, w, h);
+            }
+        }
 
+        class Shockwave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 5;
+                this.maxRadius = Math.random() * 40 + 60;
+                this.alpha = 1;
+                this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+            }
+
+            update() {
+                this.radius += (this.maxRadius - this.radius) * 0.15 + 2;
+                this.alpha -= 0.045;
+            }
+
+            draw(ctx) {
+                if (this.alpha <= 0) return;
                 ctx.save();
                 ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
 
-                if (this.type === 'heart') {
-                    const s = this.size;
-                    ctx.beginPath();
-                    ctx.moveTo(0, s * 0.3);
-                    ctx.bezierCurveTo(0, 0, -s / 2, 0, -s / 2, s * 0.3);
-                    ctx.bezierCurveTo(-s / 2, s * 0.6, 0, s * 0.8, 0, s);
-                    ctx.bezierCurveTo(0, s * 0.8, s / 2, s * 0.6, s / 2, s * 0.3);
-                    ctx.bezierCurveTo(s / 2, 0, 0, 0, 0, s * 0.3);
-                    ctx.closePath();
-                    ctx.fill();
-                } else if (this.type === 'star') {
-                    this.drawStar(ctx, 0, 0, 5, this.size, this.size / 2);
-                } else if (this.type === 'sparkle') {
-                    this.drawSparkle(ctx, 0, 0, this.size);
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
-                    ctx
+        // Spawns a high-speed firework burst
+        function createExplosion(x, y, count = 40) {
+            // Cap total particle count to maintain 60FPS on low-end devices
+            if (particles.length > 220) {
+                particles.splice(0, particles.length - 180);
+            }
+
+            shockwaves.push(new Shockwave(x, y));
+
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(x, y));
+            }
+        }
+
+        function render(currentTime) {
+            // Delta time calculation
+            const dt = (currentTime - lastTime) / 1000;
+            lastTime = currentTime;
+
+            // Clear Canvas Background (Dark Space)
+            ctx.fillStyle = '#0d0618';
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            // Render Background Starfield
+            ctx.fillStyle = '#FFFFFF';
+            for (let i = 0; i < backgroundStars.length; i++) {
+                const s = backgroundStars[i];
+                s.alpha += s.speed;
+                if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed;
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.alpha));
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Enable Additive Blending for Ultra-Glowing Fireworks without Lag!
+            ctx.globalCompositeOperation = 'lighter';
+
+            // Draw Shockwaves
+            for (let i = shockwaves.length - 1; i >= 0; i--) {
+                const sw = shockwaves[i];
+                sw.update();
+                sw.draw(ctx);
+                if (sw.alpha <= 0) shockwaves.splice(i, 1);
+            }
+
+            // Draw Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw(ctx);
+                if (p.alpha <= 0) particles.splice(i, 1);
+            }
+
+            // Reset blend mode
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.globalAlpha = 1.0;
+
+            requestAnimationFrame(render);
+        }
+
+        requestAnimationFrame(render);
+
+        function triggerMagic(x, y) {
+            playExplosionAudio();
+            triggerHaptics();
+            createExplosion(x, y, 45);
+
+            if (!isCardRevealed) {
+                isCardRevealed = true;
+                initialHint.classList.add('opacity-0', 'scale-90');
+                setTimeout(() => {
+                    initialHint.classList.add('hidden');
+                    messageCard.classList.remove('hidden');
+                    void messageCard.offsetWidth;
+                    messageCard.classList.remove('scale-90', 'opacity-0');
+                    messageCard.classList.add('scale-100', 'opacity-100');
+                }, 250);
+            }
+        }
+
+        // Pointerdown for instant zero-delay touch response
+        window.addEventListener('pointerdown', (e) => {
+            if (e.target && (e.target.closest('#messageCard') || e.target.closest('button'))) return;
+            triggerMagic(e.clientX, e.clientY);
+        });
+
+        // Super Explosion Cascade Trigger
+        superExplosionBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            initAudio();
+
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+
+            // Trigger multi-firework cascade
+            const burstLocations = [
+                { x: cx, y: cy - 80, delay: 0 },
+                { x: cx - 100, y: cy + 40, delay: 100 },
+                { x: cx + 100, y: cy + 40, delay: 200 },
+                { x: cx - 60, y: cy - 140, delay: 320 },
+                { x: cx + 60, y: cy - 140, delay: 420 }
+            ];
+
+            burstLocations.forEach(b => {
+                setTimeout(() => {
+                    triggerMagic(b.x, b.y);
+                }, b.delay);
+            });
+        });
+
+        // Web Share API or Clipboard Copy
+        shareBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const shareData = {
+                title: 'Para minha filha Rafaela ❤️✨',
+                text: 'Boa noite, Rafaela! Te amo mil milhões! ❤️✨',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).catch(() => {});
+            } else {
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+
+                shareText.textContent = 'Link Copiado! ❤️';
+                setTimeout(() => {
+                    shareText.textContent = 'Compartilhar Amor';
+                }, 2000);
+            }
+        });
+
+        // Pre-warm audio on touch/click
+        window.addEventListener('touchstart', initAudio, { once: true });
+        window.addEventListener('click', initAudio, { once: true });
+    </script>
+</body>
+</html>
